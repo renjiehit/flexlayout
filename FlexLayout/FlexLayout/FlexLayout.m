@@ -163,6 +163,20 @@ static YGConfigRef flexConfig;
     return self;
 }
 
+#pragma mark - property methods
+
+- (BOOL)isLeaf {
+    NSAssert([NSThread isMainThread], @"This method must be called on the main thread.");
+    if (self.isEnabled) {
+        for (FlexLayout *flex in _children) {
+            if (flex.isEnabled) {
+                return NO;
+            }
+        }
+    }
+    return YES;
+}
+
 #pragma mark - private method
 
 - (void)addChild:(UIView *)child {
@@ -185,6 +199,54 @@ static YGConfigRef flexConfig;
     [_children removeAllObjects];
     while (YGNodeGetChildCount(_node) > 0) {
         YGNodeRemoveChild(_node, YGNodeGetChild(_node, YGNodeGetChildCount(_node) - 1));
+    }
+}
+
+- (void)setMeasureFunction {
+    const YGNodeRef node = self.node;
+    if (self.isLeaf) {
+        YGNodeSetMeasureFunc(node, FLMeasureView);
+    } else {
+        YGNodeSetMeasureFunc(node, NULL);
+        
+        for (FlexLayout *flex in _children) {
+            [flex setMeasureFunction];
+        }
+    }
+}
+
+- (void)applyLayoutToViewHierarchy:(UIView *)view preserveOrigin:(BOOL)preserveOrigin {
+    NSCAssert([NSThread isMainThread], @"Framesetting should only be done on the main thread.");
+    
+    const FlexLayout *flex = view.flex;
+    
+    YGNodeRef node = flex.node;
+    const CGPoint topLeft = {
+        YGNodeLayoutGetLeft(node),
+        YGNodeLayoutGetTop(node),
+    };
+    
+    const CGPoint bottomRight = {
+        topLeft.x + YGNodeLayoutGetWidth(node),
+        topLeft.y + YGNodeLayoutGetHeight(node),
+    };
+    
+    const CGPoint origin = preserveOrigin ? view.frame.origin : CGPointZero;
+    view.frame = (CGRect) {
+        .origin = {
+            .x = FLRoundPixelValue(topLeft.x + origin.x),
+            .y = FLRoundPixelValue(topLeft.y + origin.y),
+        },
+        .size = {
+            .width = FLRoundPixelValue(bottomRight.x) - FLRoundPixelValue(topLeft.x),
+            .height = FLRoundPixelValue(bottomRight.y) - FLRoundPixelValue(topLeft.y),
+        },
+    };
+    
+    if (!flex.isLeaf) {
+        for (FlexLayout *childFlex in flex->_children) {
+            [self applyLayoutToViewHierarchy:childFlex.view preserveOrigin:NO];
+        }
     }
 }
 
@@ -234,6 +296,48 @@ static YGConfigRef flexConfig;
 - (FlexLayout * (^)(FLPositionType position))fl_position {
     return ^FlexLayout *(FLPositionType position) {
         [self setPosition:(YGPositionType)position];
+        return self;
+    };
+}
+
+- (FlexLayout * (^)(FLWrap flexWrap))fl_flexWrap {
+    return ^FlexLayout *(FLWrap flexWrap) {
+        [self setFlexWrap:(YGWrap)flexWrap];
+        return self;
+    };
+}
+
+- (FlexLayout * (^)(FLOverflow overflow))fl_overflow {
+    return ^FlexLayout *(FLOverflow overflow) {
+        [self setOverflow:(YGOverflow)overflow];
+        return self;
+    };
+}
+
+- (FlexLayout * (^)(FLDisplay display))fl_display {
+    return ^FlexLayout *(FLDisplay display) {
+        [self setDisplay:(YGDisplay)display];
+        return self;
+    };
+}
+
+- (FlexLayout * (^)(CGFloat flexGrow))fl_flexGrow {
+    return ^FlexLayout *(CGFloat flexGrow) {
+        [self setFlexGrow:flexGrow];
+        return self;
+    };
+}
+
+- (FlexLayout * (^)(CGFloat flexShrink))fl_flexShrink {
+    return ^FlexLayout *(CGFloat flexShrink) {
+        [self setFlexShrink:flexShrink];
+        return self;
+    };
+}
+
+- (FlexLayout * (^)(CGFloat flexBasis))fl_flexBasis {
+    return ^FlexLayout *(CGFloat flexBasis) {
+        [self setFlexBasis:YGPointValue(flexBasis)];
         return self;
     };
 }
@@ -455,21 +559,42 @@ static YGConfigRef flexConfig;
     };
 }
 
+- (FlexLayout * (^)(UIView *child))addChild {
+    return ^FlexLayout *(UIView *child) {
+        [self addChild:child];
+        return self;
+    };
+}
+
 - (FlexLayout * (^)(NSArray *children))children {
+    return ^FlexLayout *(NSArray *children) {
+        [self removeAllChildren];
+        [self addChildren:children];
+        return self;
+    };
+}
+
+- (FlexLayout * (^)(NSArray *children))addChildren {
     return ^FlexLayout *(NSArray *children) {
         [self addChildren:children];
         return self;
     };
-};
+}
 
 #pragma mark - public calc methods
 
+- (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin {
+    [self calculateLayoutWithSize:self.view.bounds.size];
+    [self applyLayoutToViewHierarchy:self.view preserveOrigin:preservingOrigin];
+}
+
 - (CGSize)calculateLayoutWithSize:(CGSize)size {
-    NSAssert([NSThread isMainThread], @"Yoga calculation must be done on main.");
-    NSAssert(self.isEnabled, @"Yoga is not enabled for this view.");
+    NSAssert([NSThread isMainThread], @"Flexlayout calculation must be done on main.");
+    NSAssert(self.isEnabled, @"Flexlayout is not enabled for this view.");
     
     //YGAttachNodesFromViewHierachy(self.view);
     // 不需要attach，但需要加上自动set measurement
+    [self setMeasureFunction];
     
     const YGNodeRef node = self.node;
     YGNodeCalculateLayout(
@@ -478,10 +603,12 @@ static YGConfigRef flexConfig;
                           size.height,
                           YGNodeStyleGetDirection(node));
     
-    return (CGSize) {
+    CGSize finalSize = (CGSize) {
         .width = YGNodeLayoutGetWidth(node),
         .height = YGNodeLayoutGetHeight(node),
     };
+    NSLog(@"flex size: height %lf, width %lf", finalSize.width, finalSize.height);
+    return finalSize;
 }
 
 #pragma mark - Style
@@ -500,6 +627,13 @@ FL_PROPERTY(YGJustify, justifyContent, JustifyContent)
 FL_PROPERTY(YGAlign, alignContent, AlignContent)
 FL_PROPERTY(YGAlign, alignItems, AlignItems)
 FL_PROPERTY(YGAlign, alignSelf, AlignSelf)
+FL_PROPERTY(YGWrap, flexWrap, FlexWrap)
+FL_PROPERTY(YGOverflow, overflow, Overflow)
+FL_PROPERTY(YGDisplay, display, Display)
+
+FL_PROPERTY(CGFloat, flexGrow, FlexGrow)
+FL_PROPERTY(CGFloat, flexShrink, FlexShrink)
+FL_AUTO_VALUE_PROPERTY(flexBasis, FlexBasis)
 
 FL_VALUE_EDGE_PROPERTY(left, Left, Position, YGEdgeLeft)
 FL_VALUE_EDGE_PROPERTY(top, Top, Position, YGEdgeTop)

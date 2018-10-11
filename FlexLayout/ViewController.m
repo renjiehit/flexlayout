@@ -19,17 +19,34 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    UIView *rootView = [UIView new];
+    rootView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 200);
+    [self.view addSubview:rootView];
+    
+    UIImageView *imageView = [UIImageView new];
+    imageView.backgroundColor = [UIColor lightGrayColor];
+    [rootView addSubview:imageView];
+    
     UILabel *label = [UILabel new];
-    label.text = @"Text";
-    label.frame = CGRectMake(100, 100, 100, 20);
+    label.text = @"Jerry Ren";
     label.backgroundColor = [UIColor lightGrayColor];
-    [self.view addSubview:label];
+    [rootView addSubview:label];
     
-    self.view.flex.fl_flexDirection(FLFlexDirectionRow).children(@[label]);
-    label.flex.fl_left(10).fl_top(10);
+    UILabel *label1 = [UILabel new];
+    label1.text = @"Sunday";
+    label1.backgroundColor = [UIColor darkGrayColor];
+    [rootView addSubview:label1];
     
-    [self.view.flex calculateLayoutWithSize:self.view.bounds.size];
-    NSLog(@"");
+    rootView.flex.fl_flexDirection(FLFlexDirectionRow).fl_justifyContent(FLJustifySpaceBetween)/*.fl_alignItems(FLAlignCenter)*/
+    .fl_padding(20).children(@[label, label1]);
+
+//    rootFlexContainer.flex.direction(.row).padding(20).define { (flex) in
+//        flex.addItem().width(80).marginEnd(20).backgroundColor(.flexLayoutColor)
+//        flex.addItem().height(25).alignSelf(.center).grow(1).backgroundColor(.black)
+//    }
+//    addSubview(rootFlexContainer)
+    
+    [rootView.flex applyLayoutPreservingOrigin:YES];
 }
 
 

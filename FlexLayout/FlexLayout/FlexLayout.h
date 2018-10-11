@@ -13,6 +13,7 @@
 @interface FlexLayout : NSObject
 
 @property (nonatomic, readwrite, assign, setter=setEnabled:) BOOL isEnabled;
+@property (nonatomic, readonly, assign) BOOL isLeaf;
 
 - (FlexLayout * (^)(FLDirection direction))fl_direction;
 - (FlexLayout * (^)(FLFlexDirection flexDirection))fl_flexDirection;
@@ -21,6 +22,13 @@
 - (FlexLayout * (^)(FLAlign alignItems))fl_alignItems;
 - (FlexLayout * (^)(FLAlign alignSelf))fl_alignSelf;
 - (FlexLayout * (^)(FLPositionType position))fl_position;
+- (FlexLayout * (^)(FLWrap flexWrap))fl_flexWrap;
+- (FlexLayout * (^)(FLOverflow overflow))fl_overflow;
+- (FlexLayout * (^)(FLDisplay display))fl_display;
+
+- (FlexLayout * (^)(CGFloat flexGrow))fl_flexGrow;
+- (FlexLayout * (^)(CGFloat flexShrink))fl_flexShrink;
+- (FlexLayout * (^)(CGFloat flexBasis))fl_flexBasis;
 
 - (FlexLayout * (^)(CGFloat top))fl_top;
 - (FlexLayout * (^)(CGFloat left))fl_left;
@@ -58,10 +66,14 @@
 
 - (FlexLayout * (^)(CGFloat aspectRatio))fl_aspectRatio;
 
+- (FlexLayout * (^)(UIView *child))addChild;
 - (FlexLayout * (^)(NSArray *children))children;
+- (FlexLayout * (^)(NSArray *children))addChildren;
 
-// 后续需要移到私有头文件
-- (instancetype)initWithView:(UIView *)view;
+- (instancetype)initWithView:(UIView *)view; // 后续需要移到私有头文件
+
+- (instancetype)init __attribute__((unavailable("you are not meant to initialise YGLayout")));
+- (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin;
 - (CGSize)calculateLayoutWithSize:(CGSize)size;
 
 @end
