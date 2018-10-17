@@ -180,6 +180,7 @@ static YGConfigRef flexConfig;
 #pragma mark - private method
 
 - (void)addChild:(UIView *)child {
+    [self.view addSubview:child];
     [_children addObject:child.flex];
     YGNodeInsertChild(_node, child.flex.node, YGNodeGetChildCount(_node));
 }
@@ -191,6 +192,7 @@ static YGConfigRef flexConfig;
 }
 
 - (void)removeChild:(UIView *)child {
+    [child removeFromSuperview];
     [_children removeObject:child.flex];
     YGNodeRemoveChild(_node, child.flex.node);
 }
@@ -562,7 +564,7 @@ static YGConfigRef flexConfig;
 - (FlexLayout * (^)(UIView *child))addChild {
     return ^FlexLayout *(UIView *child) {
         [self addChild:child];
-        return self;
+        return child.flex;
     };
 }
 
@@ -581,10 +583,29 @@ static YGConfigRef flexConfig;
     };
 }
 
+- (FlexLayout *)define:(void (^)(FlexLayout *))flex {
+    if (flex) {
+        flex(self);
+    }
+    return self;
+}
+
 #pragma mark - public calc methods
 
 - (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin {
     [self calculateLayoutWithSize:self.view.bounds.size];
+    [self applyLayoutToViewHierarchy:self.view preserveOrigin:preservingOrigin];
+}
+
+- (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin dimensionFlexibility:(FLDimensionFlexibility)dimensionFlexibility {
+    CGSize size = self.view.bounds.size;
+    if (dimensionFlexibility & FLDimensionFlexibleWidth) {
+        size.width = YGUndefined;
+    }
+    if (dimensionFlexibility & FLDimensionFlexibleHeight) {
+        size.height = YGUndefined;
+    }
+    [self calculateLayoutWithSize:size];
     [self applyLayoutToViewHierarchy:self.view preserveOrigin:preservingOrigin];
 }
 
@@ -714,13 +735,4 @@ static YGSize FLMeasureView(
         .height = FLSanitizeMeasurement(constrainedHeight, sizeThatFits.height, heightMode),
     };
 }
-
-void YGSetMesure(FlexLayout *layout) {
-    if ([layout.view isKindOfClass:[UIView class]] && layout->_children.count == 0) {
-        YGNodeSetMeasureFunc(layout.node, FLMeasureView);
-    } else {
-        YGNodeSetMeasureFunc(layout.node, NULL);
-    }
-}
-
 @end

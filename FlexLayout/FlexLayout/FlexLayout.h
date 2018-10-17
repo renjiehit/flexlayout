@@ -70,10 +70,13 @@
 - (FlexLayout * (^)(NSArray *children))children;
 - (FlexLayout * (^)(NSArray *children))addChildren;
 
+- (FlexLayout *)define:(void(^)(FlexLayout *flex))flex;
+
 - (instancetype)initWithView:(UIView *)view; // 后续需要移到私有头文件
 
 - (instancetype)init __attribute__((unavailable("you are not meant to initialise YGLayout")));
 - (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin;
+- (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin dimensionFlexibility:(FLDimensionFlexibility)dimensionFlexibility;
 - (CGSize)calculateLayoutWithSize:(CGSize)size;
 
 @end

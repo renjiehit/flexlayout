@@ -16,6 +16,7 @@
 		8F03BB57213CE5D20017D5ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F03BB56213CE5D20017D5ED /* main.m */; };
 		8F03BB67213E83660017D5ED /* FlexLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F03BB66213E83660017D5ED /* FlexLayout.m */; };
 		8F03BB6A213F83EF0017D5ED /* UIView+FlexLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F03BB69213F83EF0017D5ED /* UIView+FlexLayout.m */; };
+		8FD9DAF82175F645002EF362 /* FLVirtualView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD9DAF72175F645002EF362 /* FLVirtualView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,8 @@
 		8F03BB68213F83EF0017D5ED /* UIView+FlexLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+FlexLayout.h"; sourceTree = "<group>"; };
 		8F03BB69213F83EF0017D5ED /* UIView+FlexLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+FlexLayout.m"; sourceTree = "<group>"; };
 		8F03BB6B213F86E60017D5ED /* FLEnums.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLEnums.h; sourceTree = "<group>"; };
+		8FD9DAF62175F645002EF362 /* FLVirtualView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLVirtualView.h; sourceTree = "<group>"; };
+		8FD9DAF72175F645002EF362 /* FLVirtualView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLVirtualView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +94,8 @@
 			children = (
 				8F03BB65213E83660017D5ED /* FlexLayout.h */,
 				8F03BB66213E83660017D5ED /* FlexLayout.m */,
+				8FD9DAF62175F645002EF362 /* FLVirtualView.h */,
+				8FD9DAF72175F645002EF362 /* FLVirtualView.m */,
 				8F03BB68213F83EF0017D5ED /* UIView+FlexLayout.h */,
 				8F03BB69213F83EF0017D5ED /* UIView+FlexLayout.m */,
 				8F03BB6B213F86E60017D5ED /* FLEnums.h */,
@@ -213,6 +218,7 @@
 				8F03BB4C213CE5D20017D5ED /* ViewController.m in Sources */,
 				8F03BB57213CE5D20017D5ED /* main.m in Sources */,
 				8F03BB6A213F83EF0017D5ED /* UIView+FlexLayout.m in Sources */,
+				8FD9DAF82175F645002EF362 /* FLVirtualView.m in Sources */,
 				8F03BB49213CE5D20017D5ED /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

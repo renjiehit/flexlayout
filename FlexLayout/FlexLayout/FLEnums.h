@@ -27,8 +27,8 @@ typedef NS_ENUM(NSInteger, FLDimension) {
 
 typedef NS_ENUM(NSInteger, FLDirection) {
     FLDirectionInherit,
-    FLDirectionLTR,
-    FLDirectionRTL,
+    FLDirectionLTR, // direction left to right
+    FLDirectionRTL, // direction right to left
 };
 
 typedef NS_ENUM(NSInteger, FLDisplay) {
@@ -107,6 +107,11 @@ typedef NS_ENUM(NSInteger, FLWrap) {
     FLWrapNoWrap,
     FLWrapWrap,
     FLWrapWrapReverse,
+};
+
+typedef NS_OPTIONS(NSInteger, FLDimensionFlexibility) {
+    FLDimensionFlexibleWidth = 1 << 0,
+    FLDimensionFlexibleHeight = 1 << 1,
 };
 
 #endif /* FLEnums_h */
