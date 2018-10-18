@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FlexLayoutProtocol.h"
 #import "FlexLayout.h"
 
-@interface UIView (FlexLayout)
-
-@property (nonatomic, readonly, strong) FlexLayout *flex;
+@interface UIView (FlexLayout) <FLElement>
 
 @end

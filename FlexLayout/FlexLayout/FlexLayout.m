@@ -6,9 +6,9 @@
 //  Copyright © 2018年 任 洪杰. All rights reserved.
 //
 
-//#import "FlexLayout+Private.h"
-#import "FlexLayout.h"
-#import "UIView+FlexLayout.h"
+#import "FlexLayout+Private.h"
+#import "FlexLayoutProtocol.h"
+//#import "UIView+FlexLayout.h"
 #import <yoga/Yoga.h>
 #import <YogaKit/YGLayout.h>
 
@@ -130,10 +130,8 @@ static YGConfigRef flexConfig;
     NSMutableArray *_children;
 }
 
-@property (nonatomic, assign, readonly) YGNodeRef node;
-@property (nonatomic, weak, readonly) UIView *view;
-
-- (instancetype)initWithView:(UIView *)view;
+@property (nonatomic, weak, readonly) id<FLElement> element;
+@property (nonatomic, weak) FlexLayout *parentLayout;
 
 @end
 
@@ -150,12 +148,12 @@ static YGConfigRef flexConfig;
     YGNodeFree(self.node);
 }
 
-- (instancetype)initWithView:(UIView *)view {
+- (instancetype)initWithElement:(id<FLElement>)element {
     self = [super init];
     if (self) {
-        _view = view;
+        _element = element;
         _node = YGNodeNewWithConfig(flexConfig);
-        YGNodeSetContext(_node, (__bridge void *)view);
+        YGNodeSetContext(_node, (__bridge void *)element);
         _children = [NSMutableArray array];
         _isEnabled = YES;
         
@@ -168,36 +166,53 @@ static YGConfigRef flexConfig;
 - (BOOL)isLeaf {
     NSAssert([NSThread isMainThread], @"This method must be called on the main thread.");
     if (self.isEnabled) {
+        if (self.element.isVirtualView) { // virtual element can not be leaf element
+            return NO;
+        }
+        
         for (FlexLayout *flex in _children) {
             if (flex.isEnabled) {
                 return NO;
             }
         }
+        return YES;
     }
-    return YES;
+    return NO;
 }
 
 #pragma mark - private method
 
-- (void)addChild:(UIView *)child {
-    [self.view addSubview:child];
+- (void)addChild:(id<FLElement>)child {
+    //[self.view addSubview:child];
+    child.flex.parentLayout = self;
     [_children addObject:child.flex];
     YGNodeInsertChild(_node, child.flex.node, YGNodeGetChildCount(_node));
 }
 
 - (void)addChildren:(NSArray *)children {
-    for (UIView *child in children) {
+    for (id<FLElement> child in children) {
         [self addChild:child];
     }
 }
 
-- (void)removeChild:(UIView *)child {
-    [child removeFromSuperview];
+- (void)removeChild:(id<FLElement>)child {
+//    if (child.isVirtualView == NO) {
+//        [((UIView *)child) removeFromSuperview];
+//    }
+//    child.flex.parentLayout = nil;
+    
     [_children removeObject:child.flex];
     YGNodeRemoveChild(_node, child.flex.node);
 }
 
 - (void)removeAllChildren {
+//    for (FlexLayout *flex in _children) { //
+//        if (flex.element.isVirtualView == NO) {
+//            [((UIView *)flex.element) removeFromSuperview];
+//        }
+//        flex.parentLayout = nil;
+//    }
+    
     [_children removeAllObjects];
     while (YGNodeGetChildCount(_node) > 0) {
         YGNodeRemoveChild(_node, YGNodeGetChild(_node, YGNodeGetChildCount(_node) - 1));
@@ -217,10 +232,10 @@ static YGConfigRef flexConfig;
     }
 }
 
-- (void)applyLayoutToViewHierarchy:(UIView *)view preserveOrigin:(BOOL)preserveOrigin {
+- (void)applyLayoutToViewHierarchy:(id<FLElement>)element parentElement:(id<FLElement>)parentElement preserveOrigin:(BOOL)preserveOrigin {
     NSCAssert([NSThread isMainThread], @"Framesetting should only be done on the main thread.");
     
-    const FlexLayout *flex = view.flex;
+    const FlexLayout *flex = element.flex;
     
     YGNodeRef node = flex.node;
     const CGPoint topLeft = {
@@ -233,8 +248,9 @@ static YGConfigRef flexConfig;
         topLeft.y + YGNodeLayoutGetHeight(node),
     };
     
-    const CGPoint origin = preserveOrigin ? view.frame.origin : CGPointZero;
-    view.frame = (CGRect) {
+    BOOL needToAddParentOrigin = parentElement && parentElement.isVirtualView;
+    const CGPoint origin = preserveOrigin ? element.frame.origin : (needToAddParentOrigin ? parentElement.frame.origin : CGPointZero);
+    element.frame = (CGRect) {
         .origin = {
             .x = FLRoundPixelValue(topLeft.x + origin.x),
             .y = FLRoundPixelValue(topLeft.y + origin.y),
@@ -247,7 +263,7 @@ static YGConfigRef flexConfig;
     
     if (!flex.isLeaf) {
         for (FlexLayout *childFlex in flex->_children) {
-            [self applyLayoutToViewHierarchy:childFlex.view preserveOrigin:NO];
+            [self applyLayoutToViewHierarchy:childFlex.element parentElement:element preserveOrigin:NO];
         }
     }
 }
@@ -561,8 +577,8 @@ static YGConfigRef flexConfig;
     };
 }
 
-- (FlexLayout * (^)(UIView *child))addChild {
-    return ^FlexLayout *(UIView *child) {
+- (FlexLayout * (^)(id<FLElement> child))addChild {
+    return ^FlexLayout *(id<FLElement> child) {
         [self addChild:child];
         return child.flex;
     };
@@ -593,12 +609,12 @@ static YGConfigRef flexConfig;
 #pragma mark - public calc methods
 
 - (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin {
-    [self calculateLayoutWithSize:self.view.bounds.size];
-    [self applyLayoutToViewHierarchy:self.view preserveOrigin:preservingOrigin];
+    [self calculateLayoutWithSize:self.element.frame.size];
+    [self applyLayoutToViewHierarchy:self.element parentElement:nil preserveOrigin:preservingOrigin];
 }
 
 - (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin dimensionFlexibility:(FLDimensionFlexibility)dimensionFlexibility {
-    CGSize size = self.view.bounds.size;
+    CGSize size = self.element.frame.size;
     if (dimensionFlexibility & FLDimensionFlexibleWidth) {
         size.width = YGUndefined;
     }
@@ -606,15 +622,13 @@ static YGConfigRef flexConfig;
         size.height = YGUndefined;
     }
     [self calculateLayoutWithSize:size];
-    [self applyLayoutToViewHierarchy:self.view preserveOrigin:preservingOrigin];
+    [self applyLayoutToViewHierarchy:self.element parentElement:nil preserveOrigin:preservingOrigin];
 }
 
 - (CGSize)calculateLayoutWithSize:(CGSize)size {
     NSAssert([NSThread isMainThread], @"Flexlayout calculation must be done on main.");
     NSAssert(self.isEnabled, @"Flexlayout is not enabled for this view.");
     
-    //YGAttachNodesFromViewHierachy(self.view);
-    // 不需要attach，但需要加上自动set measurement
     [self setMeasureFunction];
     
     const YGNodeRef node = self.node;
@@ -628,7 +642,6 @@ static YGConfigRef flexConfig;
         .width = YGNodeLayoutGetWidth(node),
         .height = YGNodeLayoutGetHeight(node),
     };
-    NSLog(@"flex size: height %lf, width %lf", finalSize.width, finalSize.height);
     return finalSize;
 }
 

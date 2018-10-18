@@ -7,7 +7,27 @@
 //
 
 #import "FLVirtualView.h"
+#import "FlexLayout.h"
+#import "FlexLayout+Private.h"
+
+@interface FLVirtualView ()
+
+@property (nonatomic, strong) FlexLayout *flex;
+
+@end
 
 @implementation FLVirtualView
+@synthesize frame = _frame;
+
+- (FlexLayout *)flex {
+    if (!_flex) {
+        _flex = [[FlexLayout alloc] initWithElement:self];
+    }
+    return _flex;
+}
+
+- (BOOL)isVirtualView {
+    return YES;
+}
 
 @end

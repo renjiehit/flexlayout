@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "FLEnums.h"
+#import "FlexLayoutProtocol.h"
 
 @interface FlexLayout : NSObject
 
@@ -66,13 +67,11 @@
 
 - (FlexLayout * (^)(CGFloat aspectRatio))fl_aspectRatio;
 
-- (FlexLayout * (^)(UIView *child))addChild;
+- (FlexLayout * (^)(id<FLElement> child))addChild;
 - (FlexLayout * (^)(NSArray *children))children;
 - (FlexLayout * (^)(NSArray *children))addChildren;
 
 - (FlexLayout *)define:(void(^)(FlexLayout *flex))flex;
-
-- (instancetype)initWithView:(UIView *)view; // 后续需要移到私有头文件
 
 - (instancetype)init __attribute__((unavailable("you are not meant to initialise YGLayout")));
 - (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin;

@@ -7,6 +7,7 @@
 //
 
 #import "UIView+FlexLayout.h"
+#import "FlexLayout+Private.h"
 #import <objc/runtime.h>
 
 static const void *kFlexLayoutAssociatedKey = &kFlexLayoutAssociatedKey;
@@ -17,11 +18,15 @@ static const void *kFlexLayoutAssociatedKey = &kFlexLayoutAssociatedKey;
 {
     FlexLayout *flex = objc_getAssociatedObject(self, kFlexLayoutAssociatedKey);
     if (!flex) {
-        flex = [[FlexLayout alloc] initWithView:self];
+        flex = [[FlexLayout alloc] initWithElement:self];
         objc_setAssociatedObject(self, kFlexLayoutAssociatedKey, flex, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     
     return flex;
+}
+
+- (BOOL)isVirtualView {
+    return NO;
 }
 
 @end

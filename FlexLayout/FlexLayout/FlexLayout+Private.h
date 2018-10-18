@@ -6,15 +6,16 @@
 //  Copyright © 2018年 任 洪杰. All rights reserved.
 //
 
+#import "FlexLayoutProtocol.h"
 #import "FlexLayout.h"
-//#import <yoga/Yoga.h>
-//#import <YogaKit/YGLayout.h>
-//
-//@interface FlexLayout ()
-//
-//@property (nonatomic, assign, readonly) YGNodeRef node;
-//
-//- (instancetype)initWithView:(UIView *)view;
-//
-//@end
+#import <yoga/Yoga.h>
+#import <YogaKit/YGLayout.h>
+
+@interface FlexLayout ()
+
+@property (nonatomic, assign, readonly) YGNodeRef node;
+
+- (instancetype)initWithElement:(id<FLElement>)element;
+
+@end
 

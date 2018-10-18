@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FlexLayout.h"
+#import "FlexLayoutProtocol.h"
 
-@interface FLVirtualView : NSObject
 
-@property (nonatomic, readonly, strong) FlexLayout *flex;
+@interface FLVirtualView : NSObject <FLElement>
 
 @end
