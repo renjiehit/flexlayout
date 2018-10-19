@@ -53,11 +53,6 @@
     
     FLVirtualView *container2 = [FLVirtualView new];
     
-    //[rootView addSubview:container1];
-    
-    //[container1 addSubview:label];
-    //[container1 addSubview:label1];
-    
 //    iconCornerView.flex.fl_width(10).fl_aspectRatio(1.0).fl_position(FLPositionTypeRelative).fl_left(40).fl_top(40);
 //    imageView.flex.fl_height(50).fl_aspectRatio(1.0).fl_marginRight(20).addChild(iconCornerView);
 //    label2.flex.fl_marginHorizontal(20);//fl_marginLeft(20).fl_marginRight(20);
@@ -73,7 +68,6 @@
         .fl_direction(FLDirectionLTR);
         
         [flex.addChild(container1).fl_flexDirection(FLFlexDirectionRow) define:^(FlexLayout *flex) {
-//            flex.fl_flexDirection(FLFlexDirectionColumn);
             
             [flex.addChild(imageView) define:^(FlexLayout *flex) { //image view layout
                 flex.fl_height(50).fl_aspectRatio(1.0).fl_marginRight(20);
@@ -101,7 +95,6 @@
 //    addSubview(rootFlexContainer)
     
     NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
-    //NSLog(@"------ time consuming: %lf total time: %lf line: %d func: %s ", currentTimeStamp - lastTimeStamp, currentTimeStamp - startTimeStamp, line, func);
     [rootView.flex applyLayoutPreservingOrigin:YES dimensionFlexibility:FLDimensionFlexibleHeight];
     NSLog(@"------ time consuming: %lf ", [[NSDate date] timeIntervalSince1970] - timeInterval);
 }
@@ -114,18 +107,3 @@
 
 
 @end
-
-//void PrintTimeConsuming(const int32_t line, const char *func) {
-//    static NSTimeInterval startTimeStamp = 0;
-//    static NSTimeInterval lastTimeStamp = 0;
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        lastTimeStamp = [[NSDate date] timeIntervalSince1970];
-//        startTimeStamp = lastTimeStamp;
-//    });
-//
-//    NSTimeInterval currentTimeStamp = [[NSDate date] timeIntervalSince1970];
-//    NSLog(@"------ time consuming: %lf total time: %lf line: %d func: %s ", currentTimeStamp - lastTimeStamp, currentTimeStamp - startTimeStamp, line, func);
-//    lastTimeStamp = currentTimeStamp;
-//}
-

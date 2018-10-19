@@ -8,7 +8,6 @@
 
 #import "FlexLayout+Private.h"
 #import "FlexLayoutProtocol.h"
-//#import "UIView+FlexLayout.h"
 #import <yoga/Yoga.h>
 #import <YogaKit/YGLayout.h>
 
@@ -216,55 +215,6 @@ static YGConfigRef flexConfig;
     [_children removeAllObjects];
     while (YGNodeGetChildCount(_node) > 0) {
         YGNodeRemoveChild(_node, YGNodeGetChild(_node, YGNodeGetChildCount(_node) - 1));
-    }
-}
-
-- (void)setMeasureFunction {
-    const YGNodeRef node = self.node;
-    if (self.isLeaf) {
-        YGNodeSetMeasureFunc(node, FLMeasureView);
-    } else {
-        YGNodeSetMeasureFunc(node, NULL);
-        
-        for (FlexLayout *flex in _children) {
-            [flex setMeasureFunction];
-        }
-    }
-}
-
-- (void)applyLayoutToViewHierarchy:(id<FLElement>)element parentElement:(id<FLElement>)parentElement preserveOrigin:(BOOL)preserveOrigin {
-    NSCAssert([NSThread isMainThread], @"Framesetting should only be done on the main thread.");
-    
-    const FlexLayout *flex = element.flex;
-    
-    YGNodeRef node = flex.node;
-    const CGPoint topLeft = {
-        YGNodeLayoutGetLeft(node),
-        YGNodeLayoutGetTop(node),
-    };
-    
-    const CGPoint bottomRight = {
-        topLeft.x + YGNodeLayoutGetWidth(node),
-        topLeft.y + YGNodeLayoutGetHeight(node),
-    };
-    
-    BOOL needToAddParentOrigin = parentElement && parentElement.isVirtualView;
-    const CGPoint origin = preserveOrigin ? element.frame.origin : (needToAddParentOrigin ? parentElement.frame.origin : CGPointZero);
-    element.frame = (CGRect) {
-        .origin = {
-            .x = FLRoundPixelValue(topLeft.x + origin.x),
-            .y = FLRoundPixelValue(topLeft.y + origin.y),
-        },
-        .size = {
-            .width = FLRoundPixelValue(bottomRight.x) - FLRoundPixelValue(topLeft.x),
-            .height = FLRoundPixelValue(bottomRight.y) - FLRoundPixelValue(topLeft.y),
-        },
-    };
-    
-    if (!flex.isLeaf) {
-        for (FlexLayout *childFlex in flex->_children) {
-            [self applyLayoutToViewHierarchy:childFlex.element parentElement:element preserveOrigin:NO];
-        }
     }
 }
 
@@ -610,7 +560,7 @@ static YGConfigRef flexConfig;
 
 - (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin {
     [self calculateLayoutWithSize:self.element.frame.size];
-    [self applyLayoutToViewHierarchy:self.element parentElement:nil preserveOrigin:preservingOrigin];
+    FLApplyLayoutToViewHierarchy(self.element, nil, preservingOrigin);
 }
 
 - (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin dimensionFlexibility:(FLDimensionFlexibility)dimensionFlexibility {
@@ -622,14 +572,14 @@ static YGConfigRef flexConfig;
         size.height = YGUndefined;
     }
     [self calculateLayoutWithSize:size];
-    [self applyLayoutToViewHierarchy:self.element parentElement:nil preserveOrigin:preservingOrigin];
+    FLApplyLayoutToViewHierarchy(self.element, nil, preservingOrigin);
 }
 
 - (CGSize)calculateLayoutWithSize:(CGSize)size {
     NSAssert([NSThread isMainThread], @"Flexlayout calculation must be done on main.");
     NSAssert(self.isEnabled, @"Flexlayout is not enabled for this view.");
     
-    [self setMeasureFunction];
+    FLSetMeasureFunction(self);
     
     const YGNodeRef node = self.node;
     YGNodeCalculateLayout(
@@ -748,4 +698,56 @@ static YGSize FLMeasureView(
         .height = FLSanitizeMeasurement(constrainedHeight, sizeThatFits.height, heightMode),
     };
 }
+
+static void FLSetMeasureFunction(FlexLayout *flex) {
+    const YGNodeRef node = flex.node;
+    if (flex.isLeaf) {
+        YGNodeSetMeasureFunc(node, FLMeasureView);
+    } else {
+        YGNodeSetMeasureFunc(node, NULL);
+
+        for (FlexLayout *child in flex->_children) {
+            FLSetMeasureFunction(child);
+        }
+    }
+}
+
+static void FLApplyLayoutToViewHierarchy(id<FLElement> element,
+                                         id<FLElement> parentElement,
+                                         BOOL preserveOrigin) {
+    NSCAssert([NSThread isMainThread], @"Framesetting should only be done on the main thread.");
+    
+    const FlexLayout *flex = element.flex;
+    
+    YGNodeRef node = flex.node;
+    const CGPoint topLeft = {
+        YGNodeLayoutGetLeft(node),
+        YGNodeLayoutGetTop(node),
+    };
+    
+    const CGPoint bottomRight = {
+        topLeft.x + YGNodeLayoutGetWidth(node),
+        topLeft.y + YGNodeLayoutGetHeight(node),
+    };
+    
+    BOOL needToAddParentOrigin = parentElement && parentElement.isVirtualView;
+    const CGPoint origin = preserveOrigin ? element.frame.origin : (needToAddParentOrigin ? parentElement.frame.origin : CGPointZero);
+    element.frame = (CGRect) {
+        .origin = {
+            .x = FLRoundPixelValue(topLeft.x + origin.x),
+            .y = FLRoundPixelValue(topLeft.y + origin.y),
+        },
+        .size = {
+            .width = FLRoundPixelValue(bottomRight.x) - FLRoundPixelValue(topLeft.x),
+            .height = FLRoundPixelValue(bottomRight.y) - FLRoundPixelValue(topLeft.y),
+        },
+    };
+    
+    if (!flex.isLeaf) {
+        for (FlexLayout *childFlex in flex->_children) {
+            FLApplyLayoutToViewHierarchy(childFlex.element, element, NO);
+        }
+    }
+}
+
 @end
