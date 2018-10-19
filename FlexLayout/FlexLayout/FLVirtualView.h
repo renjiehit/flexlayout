@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "FlexLayoutProtocol.h"
 
+#define FLContainer [FLVirtualView new]
 
 @interface FLVirtualView : NSObject <FLElement>
 

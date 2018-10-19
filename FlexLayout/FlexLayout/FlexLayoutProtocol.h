@@ -14,6 +14,7 @@
 @required
 @property (nonatomic, readonly, strong) FlexLayout *flex;
 @property (nonatomic, assign) CGRect frame;
+@property (nonatomic, readonly) UIView *view;
 
 - (BOOL)isVirtualView;
 

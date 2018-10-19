@@ -25,6 +25,10 @@ static const void *kFlexLayoutAssociatedKey = &kFlexLayoutAssociatedKey;
     return flex;
 }
 
+- (UIView *)view {
+    return self;
+}
+
 - (BOOL)isVirtualView {
     return NO;
 }

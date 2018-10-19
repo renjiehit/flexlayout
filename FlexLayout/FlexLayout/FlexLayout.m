@@ -8,6 +8,7 @@
 
 #import "FlexLayout+Private.h"
 #import "FlexLayoutProtocol.h"
+#import "FLVirtualView.h"
 #import <yoga/Yoga.h>
 #import <YogaKit/YGLayout.h>
 
@@ -126,15 +127,22 @@ FL_VALUE_EDGE_PROPERTY(lowercased_name, capitalized_name, capitalized_name, YGEd
 static YGConfigRef flexConfig;
 
 @interface FlexLayout () {
+    /**
+     * children数组中存放的是child element，不是child flex。原因在于：因为存在虚拟节点，虚拟节点不会进入view hierarchy,
+     * 虚拟节点强持有flex，但flex弱持有虚拟节点，这样就导致没有对象持有虚拟节点，会造成虚拟节点的自动释放。结果是虚拟节点的flex存在，
+     * 但虚拟节点不存在了。
+     */
     NSMutableArray *_children;
 }
 
 @property (nonatomic, weak, readonly) id<FLElement> element;
+@property (nonatomic, readonly) NSMutableArray *flexChildren;
 @property (nonatomic, weak) FlexLayout *parentLayout;
 
 @end
 
 @implementation FlexLayout
+@synthesize flexChildren = _children;
 
 + (void)initialize
 {
@@ -160,6 +168,10 @@ static YGConfigRef flexConfig;
     return self;
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@:%p> element:%@", [self class], &self, self.element];
+}
+
 #pragma mark - property methods
 
 - (BOOL)isLeaf {
@@ -169,8 +181,8 @@ static YGConfigRef flexConfig;
             return NO;
         }
         
-        for (FlexLayout *flex in _children) {
-            if (flex.isEnabled) {
+        for (id<FLElement> element in _children) {
+            if (element.flex.isEnabled) {
                 return NO;
             }
         }
@@ -182,9 +194,9 @@ static YGConfigRef flexConfig;
 #pragma mark - private method
 
 - (void)addChild:(id<FLElement>)child {
-    //[self.view addSubview:child];
     child.flex.parentLayout = self;
-    [_children addObject:child.flex];
+    [_children addObject:child];
+    FLAddElementToViewHierarchy(child, self.element);
     YGNodeInsertChild(_node, child.flex.node, YGNodeGetChildCount(_node));
 }
 
@@ -195,22 +207,17 @@ static YGConfigRef flexConfig;
 }
 
 - (void)removeChild:(id<FLElement>)child {
-//    if (child.isVirtualView == NO) {
-//        [((UIView *)child) removeFromSuperview];
-//    }
-//    child.flex.parentLayout = nil;
-    
-    [_children removeObject:child.flex];
+    child.flex.parentLayout = nil;
+    [_children removeObject:child];
+    FLRemoveElementFromViewHierarchy(child);
     YGNodeRemoveChild(_node, child.flex.node);
 }
 
 - (void)removeAllChildren {
-//    for (FlexLayout *flex in _children) { //
-//        if (flex.element.isVirtualView == NO) {
-//            [((UIView *)flex.element) removeFromSuperview];
-//        }
-//        flex.parentLayout = nil;
-//    }
+    for (id<FLElement> element in _children) { //
+        FLRemoveElementFromViewHierarchy(element);
+        element.flex.parentLayout = nil;
+    }
     
     [_children removeAllObjects];
     while (YGNodeGetChildCount(_node) > 0) {
@@ -706,8 +713,8 @@ static void FLSetMeasureFunction(FlexLayout *flex) {
     } else {
         YGNodeSetMeasureFunc(node, NULL);
 
-        for (FlexLayout *child in flex->_children) {
-            FLSetMeasureFunction(child);
+        for (id<FLElement> child in flex.flexChildren) {
+            FLSetMeasureFunction(child.flex);
         }
     }
 }
@@ -744,8 +751,47 @@ static void FLApplyLayoutToViewHierarchy(id<FLElement> element,
     };
     
     if (!flex.isLeaf) {
-        for (FlexLayout *childFlex in flex->_children) {
-            FLApplyLayoutToViewHierarchy(childFlex.element, element, NO);
+        for (id<FLElement> childElement in flex.flexChildren) {
+            FLApplyLayoutToViewHierarchy(childElement, element, NO);
+        }
+    }
+}
+
+static void FLAddElementToViewHierarchy(id<FLElement> element, id<FLElement> parentElement) {
+    UIView *parentView = nil;
+    while (parentElement) { // 找出实体父View
+        if (parentElement.isVirtualView == NO) {
+            parentView = parentElement.view;
+            break;
+        } else {
+            parentElement = parentElement.flex.parentLayout.element;
+        }
+    }
+    if (parentView == nil) { // 找不到，则代表还没有实体root view，放弃add subview
+        return;
+    }
+    
+    FLAddElementToParentView(element, parentView);
+}
+
+static void FLAddElementToParentView(id<FLElement> element, UIView *parentView) {
+    if (element.isVirtualView == NO) {
+        [parentView addSubview:element.view];
+        return;
+    } else {
+        for (id<FLElement> childElement in element.flex.flexChildren) {
+            FLAddElementToParentView(childElement, parentView);
+        }
+    }
+}
+
+static void FLRemoveElementFromViewHierarchy(id<FLElement> element) {
+    if (element.isVirtualView == NO) {
+        [element.view removeFromSuperview];
+        return;
+    } else {
+        for (id<FLElement> childElement in element.flex.flexChildren) {
+            FLRemoveElementFromViewHierarchy(childElement);
         }
     }
 }

@@ -73,7 +73,7 @@
 
 - (FlexLayout *)define:(void(^)(FlexLayout *flex))flex;
 
-- (instancetype)init __attribute__((unavailable("you are not meant to initialise YGLayout")));
+- (instancetype)init __attribute__((unavailable("you are not meant to initialise FlexLayout")));
 - (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin;
 - (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin dimensionFlexibility:(FLDimensionFlexibility)dimensionFlexibility;
 - (CGSize)calculateLayoutWithSize:(CGSize)size;

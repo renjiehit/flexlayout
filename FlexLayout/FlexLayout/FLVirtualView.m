@@ -30,4 +30,9 @@
     return YES;
 }
 
+- (UIView *)view {
+    NSAssert(NO, @"Virtual view does not has view");
+    return nil;
+}
+
 @end
