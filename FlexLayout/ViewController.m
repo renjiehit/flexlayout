@@ -50,29 +50,28 @@
     label2.backgroundColor = [UIColor lightGrayColor];
     label2.numberOfLines = 0;
     
-    [rootView.flex./*fl_flexDirection(FLFlexDirectionColumn).*/fl_padding(20) define:^(FlexLayout *flex) {
+    [rootView.flex./*direction(FLFlexDirectionColumn).*/padding(20) define:^(FlexLayout *flex) {
         
-        [flex.addChild(FLContainer).fl_flexDirection(FLFlexDirectionRow) define:^(FlexLayout *flex) {
+        [flex.addChild(FLContainer).direction(FLFlexDirectionRow) define:^(FlexLayout *flex) {
             
-            [flex.addChild(imageView).fl_height(50).fl_aspectRatio(1.0).fl_marginRight(20) define:^(FlexLayout *flex) { //image view layout
+            [flex.addChild(imageView).height(50).aspectRatio(1.0).marginRight(20) define:^(FlexLayout *flex) { //image view layout
                 
                 [flex.addChild(iconCornerView) define:^(FlexLayout *flex) { // corner view layout
-                    flex.fl_width(10).fl_aspectRatio(1.0).fl_left(40).fl_top(40);
+                    flex.width(10).aspectRatio(1.0).left(40).top(40);
                 }];
             }];
             
-            [flex.addChild(FLContainer) define:^(FlexLayout *flex) { // container2
-                flex.fl_flexDirection(FLFlexDirectionColumn).fl_justifyContent(FLJustifySpaceBetween).fl_flexGrow(1.0);
+            [flex.addChild(FLContainer).direction(FLFlexDirectionColumn).justifyContent(FLJustifySpaceBetween).flexGrow(1.0) define:^(FlexLayout *flex) { // container2
                 flex.addChild(label);
                 flex.addChild(label1);
             }];
         }];
         
-        flex.addChild(label2).fl_marginTop(20);
+        flex.addChild(label2).marginTop(20);
      }];
     
     NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
-    [rootView.flex applyLayoutPreservingOrigin:YES dimensionFlexibility:FLDimensionFlexibleHeight];
+    [rootView.flex applyLayout:FLAjustHeight];
     NSLog(@"------ time consuming: %lf ", [[NSDate date] timeIntervalSince1970] - timeInterval);
     
     [Utils fillRandomColorWithViewHierarchy:rootView];
@@ -80,7 +79,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.rootView.flex applyLayoutPreservingOrigin:YES dimensionFlexibility:FLDimensionFlexibleHeight];
+    [self.rootView.flex applyLayout:FLAjustHeight];
 }
 
 - (void)didReceiveMemoryWarning {

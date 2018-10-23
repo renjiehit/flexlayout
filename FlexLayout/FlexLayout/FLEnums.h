@@ -109,9 +109,9 @@ typedef NS_ENUM(NSInteger, FLWrap) {
     FLWrapWrapReverse,
 };
 
-typedef NS_OPTIONS(NSInteger, FLDimensionFlexibility) {
-    FLDimensionFlexibleWidth = 1 << 0,
-    FLDimensionFlexibleHeight = 1 << 1,
+typedef NS_OPTIONS(NSInteger, FLLayoutMode) {
+    FLAjustWidth = 1 << 0,
+    FLAjustHeight = 1 << 1,
 };
 
 #endif /* FLEnums_h */

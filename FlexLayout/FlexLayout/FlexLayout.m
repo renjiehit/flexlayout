@@ -12,23 +12,23 @@
 #import <YogaKit/YGLayout.h>
 
 #define FL_PROPERTY(type, lowercased_name, capitalized_name)    \
-- (type)lowercased_name                                         \
+- (type)fl_##lowercased_name                                         \
 {                                                               \
 return (type)YGNodeStyleGet##capitalized_name(self.node);       \
 }                                                               \
 \
-- (void)set##capitalized_name:(type)lowercased_name             \
+- (void)fl_set##capitalized_name:(type)lowercased_name             \
 {                                                               \
 YGNodeStyleSet##capitalized_name(self.node, lowercased_name);   \
 }
 
 #define FL_VALUE_PROPERTY(lowercased_name, capitalized_name)                       \
-- (YGValue)lowercased_name                                                         \
+- (YGValue)fl_##lowercased_name                                                         \
 {                                                                                  \
   return YGNodeStyleGet##capitalized_name(self.node);                              \
 }                                                                                  \
 \
-- (void)set##capitalized_name:(YGValue)lowercased_name                             \
+- (void)fl_set##capitalized_name:(YGValue)lowercased_name                             \
 {                                                                                  \
   switch (lowercased_name.unit) {                                                  \
      case YGUnitUndefined:                                                         \
@@ -46,12 +46,12 @@ YGNodeStyleSet##capitalized_name(self.node, lowercased_name);   \
 }
 
 #define FL_AUTO_VALUE_PROPERTY(lowercased_name, capitalized_name)                  \
-- (YGValue)lowercased_name                                                         \
+- (YGValue)fl_##lowercased_name                                                         \
 {                                                                                  \
   return YGNodeStyleGet##capitalized_name(self.node);                              \
 }                                                                                  \
 \
-- (void)set##capitalized_name:(YGValue)lowercased_name                             \
+- (void)fl_set##capitalized_name:(YGValue)lowercased_name                             \
 {                                                                                  \
   switch (lowercased_name.unit) {                                                  \
     case YGUnitPoint:                                                              \
@@ -72,14 +72,8 @@ YGNodeStyleSet##capitalized_name(self.node, lowercased_name);   \
 FL_EDGE_PROPERTY_GETTER(YGValue, lowercased_name, capitalized_name, property, edge) \
 FL_VALUE_EDGE_PROPERTY_SETTER(lowercased_name, capitalized_name, property, edge)
 
-#define FL_EDGE_PROPERTY_GETTER(type, lowercased_name, capitalized_name, property, edge) \
-- (type)lowercased_name                                                                  \
-{                                                                                        \
-return YGNodeStyleGet##property(self.node, edge);                                      \
-}
-
 #define FL_VALUE_EDGE_PROPERTY_SETTER(objc_lowercased_name, objc_capitalized_name, c_name, edge) \
-- (void)set##objc_capitalized_name:(YGValue)objc_lowercased_name                                 \
+- (void)fl_set##objc_capitalized_name:(YGValue)objc_lowercased_name                                 \
 {                                                                                                \
 switch (objc_lowercased_name.unit) {                                                           \
 case YGUnitUndefined:                                                                        \
@@ -97,13 +91,13 @@ NSAssert(NO, @"Not implemented");                                               
 }
 
 #define FL_EDGE_PROPERTY_GETTER(type, lowercased_name, capitalized_name, property, edge) \
-- (type)lowercased_name                                                                  \
+- (type)fl_##lowercased_name                                                                  \
 {                                                                                        \
 return YGNodeStyleGet##property(self.node, edge);                                      \
 }
 
 #define FL_EDGE_PROPERTY_SETTER(lowercased_name, capitalized_name, property, edge) \
-- (void)set##capitalized_name:(CGFloat)lowercased_name                             \
+- (void)fl_set##capitalized_name:(CGFloat)lowercased_name                             \
 {                                                                                  \
 YGNodeStyleSet##property(self.node, edge, lowercased_name);                      \
 }
@@ -225,310 +219,310 @@ static YGConfigRef flexConfig;
 }
 
 #pragma mark - method chaining block
-- (FlexLayout *(^)(FLDirection direction))fl_direction {
+- (FlexLayout *(^)(FLDirection direction))layoutDirection {
     return ^FlexLayout *(FLDirection direction) {
-        [self setDirection:(YGDirection)direction];
+        [self fl_setDirection:(YGDirection)direction];
         return self;
     };
 }
 
-- (FlexLayout * (^)(FLFlexDirection flexDirection))fl_flexDirection {
+- (FlexLayout * (^)(FLFlexDirection flexDirection))direction {
     return ^FlexLayout *(FLFlexDirection flexDirection) {
-        [self setFlexDirection:(YGFlexDirection)flexDirection];
+        [self fl_setFlexDirection:(YGFlexDirection)flexDirection];
         return self;
     };
 }
 
-- (FlexLayout * (^)(FLJustify justifyContent))fl_justifyContent {
+- (FlexLayout * (^)(FLJustify justifyContent))justifyContent {
     return ^FlexLayout *(FLJustify justifyContent) {
-        [self setJustifyContent:(YGJustify)justifyContent];
+        [self fl_setJustifyContent:(YGJustify)justifyContent];
         return self;
     };
 }
 
-- (FlexLayout * (^)(FLAlign alignContent))fl_alignContent {
+- (FlexLayout * (^)(FLAlign alignContent))alignContent {
     return ^FlexLayout *(FLAlign alignContent) {
-        [self setAlignContent:(YGAlign)alignContent];
+        [self fl_setAlignContent:(YGAlign)alignContent];
         return self;
     };
 }
 
-- (FlexLayout * (^)(FLAlign alignItems))fl_alignItems {
+- (FlexLayout * (^)(FLAlign alignItems))alignItems {
     return ^FlexLayout *(FLAlign alignItems) {
-        [self setAlignItems:(YGAlign)alignItems];
+        [self fl_setAlignItems:(YGAlign)alignItems];
         return self;
     };
 }
 
-- (FlexLayout * (^)(FLAlign alignSelf))fl_alignSelf {
+- (FlexLayout * (^)(FLAlign alignSelf))alignSelf {
     return ^FlexLayout *(FLAlign alignSelf) {
-        [self setAlignSelf:(YGAlign)alignSelf];
+        [self fl_setAlignSelf:(YGAlign)alignSelf];
         return self;
     };
 }
 
-- (FlexLayout * (^)(FLPositionType position))fl_position {
+- (FlexLayout * (^)(FLPositionType position))position {
     return ^FlexLayout *(FLPositionType position) {
-        [self setPosition:(YGPositionType)position];
+        [self fl_setPosition:(YGPositionType)position];
         return self;
     };
 }
 
-- (FlexLayout * (^)(FLWrap flexWrap))fl_flexWrap {
+- (FlexLayout * (^)(FLWrap flexWrap))flexWrap {
     return ^FlexLayout *(FLWrap flexWrap) {
-        [self setFlexWrap:(YGWrap)flexWrap];
+        [self fl_setFlexWrap:(YGWrap)flexWrap];
         return self;
     };
 }
 
-- (FlexLayout * (^)(FLOverflow overflow))fl_overflow {
+- (FlexLayout * (^)(FLOverflow overflow))overflow {
     return ^FlexLayout *(FLOverflow overflow) {
-        [self setOverflow:(YGOverflow)overflow];
+        [self fl_setOverflow:(YGOverflow)overflow];
         return self;
     };
 }
 
-- (FlexLayout * (^)(FLDisplay display))fl_display {
+- (FlexLayout * (^)(FLDisplay display))display {
     return ^FlexLayout *(FLDisplay display) {
-        [self setDisplay:(YGDisplay)display];
+        [self fl_setDisplay:(YGDisplay)display];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat flexGrow))fl_flexGrow {
+- (FlexLayout * (^)(CGFloat flexGrow))flexGrow {
     return ^FlexLayout *(CGFloat flexGrow) {
-        [self setFlexGrow:flexGrow];
+        [self fl_setFlexGrow:flexGrow];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat flexShrink))fl_flexShrink {
+- (FlexLayout * (^)(CGFloat flexShrink))flexShrink {
     return ^FlexLayout *(CGFloat flexShrink) {
-        [self setFlexShrink:flexShrink];
+        [self fl_setFlexShrink:flexShrink];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat flexBasis))fl_flexBasis {
+- (FlexLayout * (^)(CGFloat flexBasis))flexBasis {
     return ^FlexLayout *(CGFloat flexBasis) {
-        [self setFlexBasis:YGPointValue(flexBasis)];
+        [self fl_setFlexBasis:YGPointValue(flexBasis)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat top))fl_top {
+- (FlexLayout * (^)(CGFloat top))top {
     return ^FlexLayout *(CGFloat top) {
-        [self setTop:YGPointValue(top)];
+        [self fl_setTop:YGPointValue(top)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat left))fl_left {
+- (FlexLayout * (^)(CGFloat left))left {
     return ^FlexLayout *(CGFloat left) {
-        [self setLeft:YGPointValue(left)];
+        [self fl_setLeft:YGPointValue(left)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat bottom))fl_bottom {
+- (FlexLayout * (^)(CGFloat bottom))bottom {
     return ^FlexLayout *(CGFloat bottom) {
-        [self setBottom:YGPointValue(bottom)];
+        [self fl_setBottom:YGPointValue(bottom)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat right))fl_right {
+- (FlexLayout * (^)(CGFloat right))right {
     return ^FlexLayout *(CGFloat right) {
-        [self setRight:YGPointValue(right)];
+        [self fl_setRight:YGPointValue(right)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat start))fl_start {
+- (FlexLayout * (^)(CGFloat start))start {
     return ^FlexLayout *(CGFloat start) {
-        [self setStart:YGPointValue(start)];
+        [self fl_setStart:YGPointValue(start)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat end))fl_end {
+- (FlexLayout * (^)(CGFloat end))end {
     return ^FlexLayout *(CGFloat end) {
-        [self setEnd:YGPointValue(end)];
+        [self fl_setEnd:YGPointValue(end)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat marginTop))fl_marginTop {
+- (FlexLayout * (^)(CGFloat marginTop))marginTop {
     return ^FlexLayout *(CGFloat marginTop) {
-        [self setMarginTop:YGPointValue(marginTop)];
+        [self fl_setMarginTop:YGPointValue(marginTop)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat marginLeft))fl_marginLeft {
+- (FlexLayout * (^)(CGFloat marginLeft))marginLeft {
     return ^FlexLayout *(CGFloat marginLeft) {
-        [self setMarginLeft:YGPointValue(marginLeft)];
+        [self fl_setMarginLeft:YGPointValue(marginLeft)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat marginBottom))fl_marginBottom {
+- (FlexLayout * (^)(CGFloat marginBottom))marginBottom {
     return ^FlexLayout *(CGFloat marginBottom) {
-        [self setMarginBottom:YGPointValue(marginBottom)];
+        [self fl_setMarginBottom:YGPointValue(marginBottom)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat marginRight))fl_marginRight {
+- (FlexLayout * (^)(CGFloat marginRight))marginRight {
     return ^FlexLayout *(CGFloat marginRight) {
-        [self setMarginRight:YGPointValue(marginRight)];
+        [self fl_setMarginRight:YGPointValue(marginRight)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat marginStart))fl_marginStart {
+- (FlexLayout * (^)(CGFloat marginStart))marginStart {
     return ^FlexLayout *(CGFloat marginStart) {
-        [self setMarginStart:YGPointValue(marginStart)];
+        [self fl_setMarginStart:YGPointValue(marginStart)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat marginEnd))fl_marginEnd {
+- (FlexLayout * (^)(CGFloat marginEnd))marginEnd {
     return ^FlexLayout *(CGFloat marginEnd) {
-        [self setMarginEnd:YGPointValue(marginEnd)];
+        [self fl_setMarginEnd:YGPointValue(marginEnd)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat marginHorizontal))fl_marginHorizontal {
+- (FlexLayout * (^)(CGFloat marginHorizontal))marginHorizontal {
     return ^FlexLayout *(CGFloat marginHorizontal) {
-        [self setMarginHorizontal:YGPointValue(marginHorizontal)];
+        [self fl_setMarginHorizontal:YGPointValue(marginHorizontal)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat marginVertical))fl_marginVertical {
+- (FlexLayout * (^)(CGFloat marginVertical))marginVertical {
     return ^FlexLayout *(CGFloat marginVertical) {
-        [self setMarginVertical:YGPointValue(marginVertical)];
+        [self fl_setMarginVertical:YGPointValue(marginVertical)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat margin))fl_margin {
+- (FlexLayout * (^)(CGFloat margin))margin {
     return ^FlexLayout *(CGFloat margin) {
-        [self setMargin:YGPointValue(margin)];
+        [self fl_setMargin:YGPointValue(margin)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat paddingTop))fl_paddingTop {
+- (FlexLayout * (^)(CGFloat paddingTop))paddingTop {
     return ^FlexLayout *(CGFloat paddingTop) {
-        [self setPaddingTop:YGPointValue(paddingTop)];
+        [self fl_setPaddingTop:YGPointValue(paddingTop)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat paddingLeft))fl_paddingLeft {
+- (FlexLayout * (^)(CGFloat paddingLeft))paddingLeft {
     return ^FlexLayout *(CGFloat paddingLeft) {
-        [self setPaddingLeft:YGPointValue(paddingLeft)];
+        [self fl_setPaddingLeft:YGPointValue(paddingLeft)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat paddingBottom))fl_paddingBottom {
+- (FlexLayout * (^)(CGFloat paddingBottom))paddingBottom {
     return ^FlexLayout *(CGFloat paddingBottom) {
-        [self setPaddingBottom:YGPointValue(paddingBottom)];
+        [self fl_setPaddingBottom:YGPointValue(paddingBottom)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat paddingRight))fl_paddingRight {
+- (FlexLayout * (^)(CGFloat paddingRight))paddingRight {
     return ^FlexLayout *(CGFloat paddingRight) {
-        [self setPaddingRight:YGPointValue(paddingRight)];
+        [self fl_setPaddingRight:YGPointValue(paddingRight)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat paddingStart))fl_paddingStart {
+- (FlexLayout * (^)(CGFloat paddingStart))paddingStart {
     return ^FlexLayout *(CGFloat paddingStart) {
-        [self setPaddingStart:YGPointValue(paddingStart)];
+        [self fl_setPaddingStart:YGPointValue(paddingStart)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat paddingEnd))fl_paddingEnd {
+- (FlexLayout * (^)(CGFloat paddingEnd))paddingEnd {
     return ^FlexLayout *(CGFloat paddingEnd) {
-        [self setPaddingEnd:YGPointValue(paddingEnd)];
+        [self fl_setPaddingEnd:YGPointValue(paddingEnd)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat paddingHorizontal))fl_paddingHorizontal {
+- (FlexLayout * (^)(CGFloat paddingHorizontal))paddingHorizontal {
     return ^FlexLayout *(CGFloat paddingHorizontal) {
-        [self setPaddingHorizontal:YGPointValue(paddingHorizontal)];
+        [self fl_setPaddingHorizontal:YGPointValue(paddingHorizontal)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat paddingVertical))fl_paddingVertical {
+- (FlexLayout * (^)(CGFloat paddingVertical))paddingVertical {
     return ^FlexLayout *(CGFloat paddingVertical) {
-        [self setPaddingVertical:YGPointValue(paddingVertical)];
+        [self fl_setPaddingVertical:YGPointValue(paddingVertical)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat padding))fl_padding {
+- (FlexLayout * (^)(CGFloat padding))padding {
     return ^FlexLayout *(CGFloat padding) {
-        [self setPadding:YGPointValue(padding)];
+        [self fl_setPadding:YGPointValue(padding)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat width))fl_width {
+- (FlexLayout * (^)(CGFloat width))width {
     return ^FlexLayout *(CGFloat width) {
-        [self setWidth:YGPointValue(width)];
+        [self fl_setWidth:YGPointValue(width)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat height))fl_height {
+- (FlexLayout * (^)(CGFloat height))height {
     return ^FlexLayout *(CGFloat height) {
-        [self setHeight:YGPointValue(height)];
+        [self fl_setHeight:YGPointValue(height)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat minWidth))fl_minWidth {
+- (FlexLayout * (^)(CGFloat minWidth))minWidth {
     return ^FlexLayout *(CGFloat minWidth) {
-        [self setMinWidth:YGPointValue(minWidth)];
+        [self fl_setMinWidth:YGPointValue(minWidth)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat minHeight))fl_minHeight {
+- (FlexLayout * (^)(CGFloat minHeight))minHeight {
     return ^FlexLayout *(CGFloat minHeight) {
-        [self setMinHeight:YGPointValue(minHeight)];
+        [self fl_setMinHeight:YGPointValue(minHeight)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat maxWidth))fl_maxWidth {
+- (FlexLayout * (^)(CGFloat maxWidth))maxWidth {
     return ^FlexLayout *(CGFloat maxWidth) {
-        [self setMaxWidth:YGPointValue(maxWidth)];
+        [self fl_setMaxWidth:YGPointValue(maxWidth)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat maxHeight))fl_maxHeight {
+- (FlexLayout * (^)(CGFloat maxHeight))maxHeight {
     return ^FlexLayout *(CGFloat maxHeight) {
-        [self setMaxHeight:YGPointValue(maxHeight)];
+        [self fl_setMaxHeight:YGPointValue(maxHeight)];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat aspectRatio))fl_aspectRatio {
+- (FlexLayout * (^)(CGFloat aspectRatio))aspectRatio {
     return ^FlexLayout *(CGFloat aspectRatio) {
-        [self setAspectRatio:aspectRatio];
+        [self fl_setAspectRatio:aspectRatio];
         return self;
     };
 }
@@ -564,17 +558,21 @@ static YGConfigRef flexConfig;
 
 #pragma mark - public calc methods
 
+- (void)applyLayout:(FLLayoutMode)layoutMode {
+    [self applyLayoutPreservingOrigin:YES layoutMode:layoutMode];
+}
+
 - (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin {
     [self calculateLayoutWithSize:self.element.frame.size];
     FLApplyLayoutToViewHierarchy(self.element, nil, preservingOrigin);
 }
 
-- (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin dimensionFlexibility:(FLDimensionFlexibility)dimensionFlexibility {
+- (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin layoutMode:(FLLayoutMode)layoutMode {
     CGSize size = self.element.frame.size;
-    if (dimensionFlexibility & FLDimensionFlexibleWidth) {
+    if (layoutMode & FLAjustWidth) {
         size.width = YGUndefined;
     }
-    if (dimensionFlexibility & FLDimensionFlexibleHeight) {
+    if (layoutMode & FLAjustHeight) {
         size.height = YGUndefined;
     }
     [self calculateLayoutWithSize:size];
@@ -603,11 +601,11 @@ static YGConfigRef flexConfig;
 
 #pragma mark - Style
 
-- (YGPositionType)position {
+- (YGPositionType)fl_position {
     return YGNodeStyleGetPositionType(self.node);
 }
 
-- (void)setPosition:(YGPositionType)position {
+- (void)fl_setPosition:(YGPositionType)position {
     YGNodeStyleSetPositionType(self.node, position);
 }
 

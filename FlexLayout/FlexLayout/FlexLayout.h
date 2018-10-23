@@ -16,56 +16,56 @@
 @property (nonatomic, readwrite, assign, setter=setEnabled:) BOOL isEnabled;
 @property (nonatomic, readonly, assign) BOOL isLeaf;
 
-- (FlexLayout * (^)(FLDirection direction))fl_direction;
-- (FlexLayout * (^)(FLFlexDirection flexDirection))fl_flexDirection;
-- (FlexLayout * (^)(FLJustify justifyContent))fl_justifyContent;
-- (FlexLayout * (^)(FLAlign alignContent))fl_alignContent;
-- (FlexLayout * (^)(FLAlign alignItems))fl_alignItems;
-- (FlexLayout * (^)(FLAlign alignSelf))fl_alignSelf;
-- (FlexLayout * (^)(FLPositionType position))fl_position;
-- (FlexLayout * (^)(FLWrap flexWrap))fl_flexWrap;
-- (FlexLayout * (^)(FLOverflow overflow))fl_overflow;
-- (FlexLayout * (^)(FLDisplay display))fl_display;
+- (FlexLayout * (^)(FLDirection direction))layoutDirection;
+- (FlexLayout * (^)(FLFlexDirection flexDirection))direction;
+- (FlexLayout * (^)(FLJustify justifyContent))justifyContent;
+- (FlexLayout * (^)(FLAlign alignContent))alignContent;
+- (FlexLayout * (^)(FLAlign alignItems))alignItems;
+- (FlexLayout * (^)(FLAlign alignSelf))alignSelf;
+- (FlexLayout * (^)(FLPositionType position))position;
+- (FlexLayout * (^)(FLWrap flexWrap))flexWrap;
+- (FlexLayout * (^)(FLOverflow overflow))overflow;
+- (FlexLayout * (^)(FLDisplay display))display;
 
-- (FlexLayout * (^)(CGFloat flexGrow))fl_flexGrow;
-- (FlexLayout * (^)(CGFloat flexShrink))fl_flexShrink;
-- (FlexLayout * (^)(CGFloat flexBasis))fl_flexBasis;
+- (FlexLayout * (^)(CGFloat flexGrow))flexGrow;
+- (FlexLayout * (^)(CGFloat flexShrink))flexShrink;
+- (FlexLayout * (^)(CGFloat flexBasis))flexBasis;
 
-- (FlexLayout * (^)(CGFloat top))fl_top;
-- (FlexLayout * (^)(CGFloat left))fl_left;
-- (FlexLayout * (^)(CGFloat bottom))fl_bottom;
-- (FlexLayout * (^)(CGFloat right))fl_right;
-- (FlexLayout * (^)(CGFloat start))fl_start;
-- (FlexLayout * (^)(CGFloat end))fl_end;
+- (FlexLayout * (^)(CGFloat top))top;
+- (FlexLayout * (^)(CGFloat left))left;
+- (FlexLayout * (^)(CGFloat bottom))bottom;
+- (FlexLayout * (^)(CGFloat right))right;
+- (FlexLayout * (^)(CGFloat start))start;
+- (FlexLayout * (^)(CGFloat end))end;
 
-- (FlexLayout * (^)(CGFloat marginTop))fl_marginTop;
-- (FlexLayout * (^)(CGFloat marginLeft))fl_marginLeft;
-- (FlexLayout * (^)(CGFloat marginBottom))fl_marginBottom;
-- (FlexLayout * (^)(CGFloat marginRight))fl_marginRight;
-- (FlexLayout * (^)(CGFloat marginStart))fl_marginStart;
-- (FlexLayout * (^)(CGFloat marginEnd))fl_marginEnd;
-- (FlexLayout * (^)(CGFloat marginHorizontal))fl_marginHorizontal;
-- (FlexLayout * (^)(CGFloat marginVertical))fl_marginVertical;
-- (FlexLayout * (^)(CGFloat margin))fl_margin;
+- (FlexLayout * (^)(CGFloat marginTop))marginTop;
+- (FlexLayout * (^)(CGFloat marginLeft))marginLeft;
+- (FlexLayout * (^)(CGFloat marginBottom))marginBottom;
+- (FlexLayout * (^)(CGFloat marginRight))marginRight;
+- (FlexLayout * (^)(CGFloat marginStart))marginStart;
+- (FlexLayout * (^)(CGFloat marginEnd))marginEnd;
+- (FlexLayout * (^)(CGFloat marginHorizontal))marginHorizontal;
+- (FlexLayout * (^)(CGFloat marginVertical))marginVertical;
+- (FlexLayout * (^)(CGFloat margin))margin;
 
-- (FlexLayout * (^)(CGFloat paddingTop))fl_paddingTop;
-- (FlexLayout * (^)(CGFloat paddingLeft))fl_paddingLeft;
-- (FlexLayout * (^)(CGFloat paddingBottom))fl_paddingBottom;
-- (FlexLayout * (^)(CGFloat paddingRight))fl_paddingRight;
-- (FlexLayout * (^)(CGFloat paddingStart))fl_paddingStart;
-- (FlexLayout * (^)(CGFloat paddingEnd))fl_paddingEnd;
-- (FlexLayout * (^)(CGFloat paddingHorizontal))fl_paddingHorizontal;
-- (FlexLayout * (^)(CGFloat paddingVertical))fl_paddingVertical;
-- (FlexLayout * (^)(CGFloat padding))fl_padding;
+- (FlexLayout * (^)(CGFloat paddingTop))paddingTop;
+- (FlexLayout * (^)(CGFloat paddingLeft))paddingLeft;
+- (FlexLayout * (^)(CGFloat paddingBottom))paddingBottom;
+- (FlexLayout * (^)(CGFloat paddingRight))paddingRight;
+- (FlexLayout * (^)(CGFloat paddingStart))paddingStart;
+- (FlexLayout * (^)(CGFloat paddingEnd))paddingEnd;
+- (FlexLayout * (^)(CGFloat paddingHorizontal))paddingHorizontal;
+- (FlexLayout * (^)(CGFloat paddingVertical))paddingVertical;
+- (FlexLayout * (^)(CGFloat padding))padding;
 
-- (FlexLayout * (^)(CGFloat width))fl_width;
-- (FlexLayout * (^)(CGFloat height))fl_height;
-- (FlexLayout * (^)(CGFloat minWidth))fl_minWidth;
-- (FlexLayout * (^)(CGFloat minHeight))fl_minHeight;
-- (FlexLayout * (^)(CGFloat maxWidth))fl_maxWidth;
-- (FlexLayout * (^)(CGFloat maxHeight))fl_maxHeight;
+- (FlexLayout * (^)(CGFloat width))width;
+- (FlexLayout * (^)(CGFloat height))height;
+- (FlexLayout * (^)(CGFloat minWidth))minWidth;
+- (FlexLayout * (^)(CGFloat minHeight))minHeight;
+- (FlexLayout * (^)(CGFloat maxWidth))maxWidth;
+- (FlexLayout * (^)(CGFloat maxHeight))maxHeight;
 
-- (FlexLayout * (^)(CGFloat aspectRatio))fl_aspectRatio;
+- (FlexLayout * (^)(CGFloat aspectRatio))aspectRatio;
 
 - (FlexLayout * (^)(id<FLElement> child))addChild;
 - (FlexLayout * (^)(NSArray *children))children;
@@ -74,8 +74,9 @@
 - (FlexLayout *)define:(void(^)(FlexLayout *flex))flex;
 
 - (instancetype)init __attribute__((unavailable("you are not meant to initialise FlexLayout")));
+- (void)applyLayout:(FLLayoutMode)layoutMode;
 - (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin;
-- (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin dimensionFlexibility:(FLDimensionFlexibility)dimensionFlexibility;
+- (void)applyLayoutPreservingOrigin:(BOOL)preservingOrigin layoutMode:(FLLayoutMode)layoutMode;
 - (CGSize)calculateLayoutWithSize:(CGSize)size;
 
 @end
