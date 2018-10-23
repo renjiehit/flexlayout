@@ -1,23 +1,27 @@
 //
-//  ViewController.m
+//  IntroViewController.m
 //  FlexLayout
 //
 //  Created by 任 洪杰 on 2018/9/3.
 //  Copyright © 2018年 任 洪杰. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "IntroViewController.h"
 #import "UIView+FlexLayout.h"
 #import "FLVirtualView.h"
 #import "Utils.h"
 
-@interface ViewController ()
+@interface IntroViewController ()
 
 @property (nonatomic, strong) UIView *rootView;
 
 @end
 
-@implementation ViewController
+@implementation IntroViewController
+
+- (void)dealloc {
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -67,7 +71,11 @@
             }];
         }];
         
-        flex.addChild(label2).marginTop(20);
+        [flex.addChild(FLContainer).direction(FLFlexDirectionRow).marginTop(20) define:^(FlexLayout *flex) {
+            
+            flex.addChild(label2).flexShrink(1.0).marginRight(20);//.marginTop(20);
+            flex.addChild([UIView new]).width(60);
+        }];
      }];
     
     NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];

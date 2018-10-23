@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6A803E3FB331316FD89FA58F /* libPods-FlexLayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D026BA7DC4B3929799BC2B /* libPods-FlexLayout.a */; };
 		8F03BB49213CE5D20017D5ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F03BB48213CE5D20017D5ED /* AppDelegate.m */; };
-		8F03BB4C213CE5D20017D5ED /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F03BB4B213CE5D20017D5ED /* ViewController.m */; };
 		8F03BB4F213CE5D20017D5ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F03BB4D213CE5D20017D5ED /* Main.storyboard */; };
 		8F03BB51213CE5D20017D5ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F03BB50213CE5D20017D5ED /* Assets.xcassets */; };
 		8F03BB54213CE5D20017D5ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F03BB52213CE5D20017D5ED /* LaunchScreen.storyboard */; };
@@ -19,6 +18,11 @@
 		8FD9DAF82175F645002EF362 /* FLVirtualView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD9DAF72175F645002EF362 /* FLVirtualView.m */; };
 		8FF44A49217ECAE500403E9C /* UIColor+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A47217ECAE500403E9C /* UIColor+Random.m */; };
 		8FF44A50217ECB8F00403E9C /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A4F217ECB8F00403E9C /* Utils.m */; };
+		8FF44A59217F17A500403E9C /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A58217F17A500403E9C /* MenuViewController.m */; };
+		8FF44A60217F1CEC00403E9C /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A5E217F1CEC00403E9C /* IntroViewController.m */; };
+		8FF44A64217F21B600403E9C /* NewsCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A63217F21B600403E9C /* NewsCardViewController.m */; };
+		8FF44A67217F21E400403E9C /* NewsCardSingleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A66217F21E400403E9C /* NewsCardSingleImage.m */; };
+		8FF44A6A217F21F700403E9C /* NewsCardMultiImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A69217F21F700403E9C /* NewsCardMultiImage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,8 +32,6 @@
 		8F03BB44213CE5D20017D5ED /* FlexLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlexLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F03BB47213CE5D20017D5ED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8F03BB48213CE5D20017D5ED /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8F03BB4A213CE5D20017D5ED /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8F03BB4B213CE5D20017D5ED /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8F03BB4E213CE5D20017D5ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8F03BB50213CE5D20017D5ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8F03BB53213CE5D20017D5ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -48,6 +50,17 @@
 		8FF44A48217ECAE500403E9C /* UIColor+Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Random.h"; sourceTree = "<group>"; };
 		8FF44A4E217ECB8F00403E9C /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		8FF44A4F217ECB8F00403E9C /* Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		8FF44A57217F17A500403E9C /* MenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		8FF44A58217F17A500403E9C /* MenuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		8FF44A5E217F1CEC00403E9C /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
+		8FF44A5F217F1CEC00403E9C /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
+		8FF44A62217F21B600403E9C /* NewsCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsCardViewController.h; sourceTree = "<group>"; };
+		8FF44A63217F21B600403E9C /* NewsCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsCardViewController.m; sourceTree = "<group>"; };
+		8FF44A65217F21E400403E9C /* NewsCardSingleImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsCardSingleImage.h; sourceTree = "<group>"; };
+		8FF44A66217F21E400403E9C /* NewsCardSingleImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsCardSingleImage.m; sourceTree = "<group>"; };
+		8FF44A68217F21F700403E9C /* NewsCardMultiImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsCardMultiImage.h; sourceTree = "<group>"; };
+		8FF44A69217F21F700403E9C /* NewsCardMultiImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsCardMultiImage.m; sourceTree = "<group>"; };
+		8FF44A6B217F26A500403E9C /* FlexHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlexHeaders.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,10 +99,9 @@
 		8F03BB46213CE5D20017D5ED /* FlexLayout */ = {
 			isa = PBXGroup;
 			children = (
+				8FF44A54217F178D00403E9C /* UI */,
 				8F03BB47213CE5D20017D5ED /* AppDelegate.h */,
 				8F03BB48213CE5D20017D5ED /* AppDelegate.m */,
-				8F03BB4A213CE5D20017D5ED /* ViewController.h */,
-				8F03BB4B213CE5D20017D5ED /* ViewController.m */,
 				8F03BB4D213CE5D20017D5ED /* Main.storyboard */,
 				8F03BB50213CE5D20017D5ED /* Assets.xcassets */,
 				8F03BB52213CE5D20017D5ED /* LaunchScreen.storyboard */,
@@ -111,6 +123,7 @@
 				8F03BB68213F83EF0017D5ED /* UIView+FlexLayout.h */,
 				8F03BB69213F83EF0017D5ED /* UIView+FlexLayout.m */,
 				8F03BB6B213F86E60017D5ED /* FLEnums.h */,
+				8FF44A6B217F26A500403E9C /* FlexHeaders.h */,
 			);
 			name = FlexLayout;
 			path = FlexLayout/FlexLayout;
@@ -134,6 +147,55 @@
 			);
 			name = Utils;
 			path = FlexLayout/Utils;
+			sourceTree = "<group>";
+		};
+		8FF44A54217F178D00403E9C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				8FF44A55217F178D00403E9C /* Examples */,
+				8FF44A56217F178D00403E9C /* Menu */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		8FF44A55217F178D00403E9C /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				8FF44A61217F21A700403E9C /* NewsCard */,
+				8FF44A5D217F1CEC00403E9C /* Introduce */,
+			);
+			path = Examples;
+			sourceTree = "<group>";
+		};
+		8FF44A56217F178D00403E9C /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				8FF44A57217F17A500403E9C /* MenuViewController.h */,
+				8FF44A58217F17A500403E9C /* MenuViewController.m */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		8FF44A5D217F1CEC00403E9C /* Introduce */ = {
+			isa = PBXGroup;
+			children = (
+				8FF44A5E217F1CEC00403E9C /* IntroViewController.m */,
+				8FF44A5F217F1CEC00403E9C /* IntroViewController.h */,
+			);
+			path = Introduce;
+			sourceTree = "<group>";
+		};
+		8FF44A61217F21A700403E9C /* NewsCard */ = {
+			isa = PBXGroup;
+			children = (
+				8FF44A68217F21F700403E9C /* NewsCardMultiImage.h */,
+				8FF44A69217F21F700403E9C /* NewsCardMultiImage.m */,
+				8FF44A65217F21E400403E9C /* NewsCardSingleImage.h */,
+				8FF44A66217F21E400403E9C /* NewsCardSingleImage.m */,
+				8FF44A62217F21B600403E9C /* NewsCardViewController.h */,
+				8FF44A63217F21B600403E9C /* NewsCardViewController.m */,
+			);
+			path = NewsCard;
 			sourceTree = "<group>";
 		};
 		940E5460C804836CB3CC9277 /* Pods */ = {
@@ -247,13 +309,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FF44A49217ECAE500403E9C /* UIColor+Random.m in Sources */,
+				8FF44A59217F17A500403E9C /* MenuViewController.m in Sources */,
 				8F03BB67213E83660017D5ED /* FlexLayout.m in Sources */,
-				8F03BB4C213CE5D20017D5ED /* ViewController.m in Sources */,
 				8FF44A50217ECB8F00403E9C /* Utils.m in Sources */,
+				8FF44A60217F1CEC00403E9C /* IntroViewController.m in Sources */,
 				8F03BB57213CE5D20017D5ED /* main.m in Sources */,
 				8F03BB6A213F83EF0017D5ED /* UIView+FlexLayout.m in Sources */,
 				8FD9DAF82175F645002EF362 /* FLVirtualView.m in Sources */,
 				8F03BB49213CE5D20017D5ED /* AppDelegate.m in Sources */,
+				8FF44A67217F21E400403E9C /* NewsCardSingleImage.m in Sources */,
+				8FF44A6A217F21F700403E9C /* NewsCardMultiImage.m in Sources */,
+				8FF44A64217F21B600403E9C /* NewsCardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
