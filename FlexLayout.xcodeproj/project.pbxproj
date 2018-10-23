@@ -17,6 +17,8 @@
 		8F03BB67213E83660017D5ED /* FlexLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F03BB66213E83660017D5ED /* FlexLayout.m */; };
 		8F03BB6A213F83EF0017D5ED /* UIView+FlexLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F03BB69213F83EF0017D5ED /* UIView+FlexLayout.m */; };
 		8FD9DAF82175F645002EF362 /* FLVirtualView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD9DAF72175F645002EF362 /* FLVirtualView.m */; };
+		8FF44A49217ECAE500403E9C /* UIColor+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A47217ECAE500403E9C /* UIColor+Random.m */; };
+		8FF44A50217ECB8F00403E9C /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A4F217ECB8F00403E9C /* Utils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,10 @@
 		8FD9DAF72175F645002EF362 /* FLVirtualView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLVirtualView.m; sourceTree = "<group>"; };
 		8FDF73DF21783F7100A76827 /* FlexLayoutProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlexLayoutProtocol.h; sourceTree = "<group>"; };
 		8FDF73E0217864E600A76827 /* FlexLayout+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FlexLayout+Private.h"; sourceTree = "<group>"; };
+		8FF44A47217ECAE500403E9C /* UIColor+Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Random.m"; sourceTree = "<group>"; };
+		8FF44A48217ECAE500403E9C /* UIColor+Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Random.h"; sourceTree = "<group>"; };
+		8FF44A4E217ECB8F00403E9C /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		8FF44A4F217ECB8F00403E9C /* Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,8 @@
 			isa = PBXGroup;
 			children = (
 				8F03BB46213CE5D20017D5ED /* FlexLayout */,
+				8FF44A4D217ECB6900403E9C /* Utils */,
+				8FF44A46217ECAE500403E9C /* Color */,
 				8F03BB64213E825C0017D5ED /* FlexLayout */,
 				8F03BB45213CE5D20017D5ED /* Products */,
 				940E5460C804836CB3CC9277 /* Pods */,
@@ -106,6 +114,26 @@
 			);
 			name = FlexLayout;
 			path = FlexLayout/FlexLayout;
+			sourceTree = "<group>";
+		};
+		8FF44A46217ECAE500403E9C /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				8FF44A47217ECAE500403E9C /* UIColor+Random.m */,
+				8FF44A48217ECAE500403E9C /* UIColor+Random.h */,
+			);
+			name = Color;
+			path = FlexLayout/Color;
+			sourceTree = "<group>";
+		};
+		8FF44A4D217ECB6900403E9C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				8FF44A4E217ECB8F00403E9C /* Utils.h */,
+				8FF44A4F217ECB8F00403E9C /* Utils.m */,
+			);
+			name = Utils;
+			path = FlexLayout/Utils;
 			sourceTree = "<group>";
 		};
 		940E5460C804836CB3CC9277 /* Pods */ = {
@@ -218,8 +246,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FF44A49217ECAE500403E9C /* UIColor+Random.m in Sources */,
 				8F03BB67213E83660017D5ED /* FlexLayout.m in Sources */,
 				8F03BB4C213CE5D20017D5ED /* ViewController.m in Sources */,
+				8FF44A50217ECB8F00403E9C /* Utils.m in Sources */,
 				8F03BB57213CE5D20017D5ED /* main.m in Sources */,
 				8F03BB6A213F83EF0017D5ED /* UIView+FlexLayout.m in Sources */,
 				8FD9DAF82175F645002EF362 /* FLVirtualView.m in Sources */,

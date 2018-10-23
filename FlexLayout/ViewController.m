@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "UIView+FlexLayout.h"
 #import "FLVirtualView.h"
+#import "Utils.h"
 
 @interface ViewController ()
 
@@ -49,7 +50,7 @@
     label2.backgroundColor = [UIColor lightGrayColor];
     label2.numberOfLines = 0;
     
-    [rootView.flex.fl_flexDirection(FLFlexDirectionColumn).fl_padding(20) define:^(FlexLayout *flex) {
+    [rootView.flex./*fl_flexDirection(FLFlexDirectionColumn).*/fl_padding(20) define:^(FlexLayout *flex) {
         
         [flex.addChild(FLContainer).fl_flexDirection(FLFlexDirectionRow) define:^(FlexLayout *flex) {
             
@@ -73,6 +74,8 @@
     NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
     [rootView.flex applyLayoutPreservingOrigin:YES dimensionFlexibility:FLDimensionFlexibleHeight];
     NSLog(@"------ time consuming: %lf ", [[NSDate date] timeIntervalSince1970] - timeInterval);
+    
+    [Utils fillRandomColorWithViewHierarchy:rootView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

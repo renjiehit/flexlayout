@@ -8,7 +8,6 @@
 
 #import "FlexLayout+Private.h"
 #import "FlexLayoutProtocol.h"
-#import "FLVirtualView.h"
 #import <yoga/Yoga.h>
 #import <YogaKit/YGLayout.h>
 
