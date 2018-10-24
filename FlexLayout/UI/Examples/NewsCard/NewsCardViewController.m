@@ -9,6 +9,7 @@
 #import "NewsCardViewController.h"
 #import "NewsCardSingleImage.h"
 #import "NewsCardMultiImage.h"
+#import "NewsCardVideo.h"
 #import "FlexHeaders.h"
 #import "Utils.h"
 
@@ -23,17 +24,29 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:scrollView];
+    
+    UIView *contentView = [[UIView alloc] initWithFrame:self.view.bounds];
+    [scrollView addSubview:contentView];
+    
     NewsCardSingleImage *cardSingleImage = [NewsCardSingleImage new];
     NewsCardMultiImage *cardMultiImage = [NewsCardMultiImage new];
+    NewsCardVideo *cardVideo = [NewsCardVideo new];
     
-    [self.view.flex.direction(FLFlexDirectionColumn).justifyContent(FLJustifySpaceBetween) define:^(FlexLayout *flex) {
-        flex.addChild(cardSingleImage).width(self.view.bounds.size.width).marginTop(80);
+    [contentView.flex.direction(FLFlexDirectionColumn).justifyContent(FLJustifySpaceBetween) define:^(FlexLayout *flex) {
+        flex.addChild(cardSingleImage).marginTop(0);
         flex.addChild(cardMultiImage).marginTop(20);
+        flex.addChild(cardVideo).marginTop(20);
     }];
     
-    [self.view.flex applyLayout:FLAjustHeight];
+    [contentView.flex applyLayout:FLAjustHeight];
+    
+    scrollView.contentSize = contentView.frame.size;
     
     [Utils fillRandomColorWithViewHierarchy:self.view];
+    
+    contentView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning {

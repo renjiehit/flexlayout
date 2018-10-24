@@ -44,17 +44,18 @@
                 [flex.addChild(FLContainer).direction(FLFlexDirectionRow).marginBottom(10) define:^(FlexLayout *flex) {
                     flex.justifyContent(FLJustifySpaceBetween);
                     
-                    [flex.addChild(FLContainer).direction(FLFlexDirectionRow) define:^(FlexLayout *flex) {
+                    [flex.addChild(FLContainer).direction(FLFlexDirectionRow).flexShrink(1) define:^(FlexLayout *flex) {
+                        flex.alignItems(FLAlignCenter);
                         flex.addChild(sourceLabel).marginRight(10);
                         flex.addChild(commentLabel).marginRight(10);
-                        flex.addChild(timeLabel).marginRight(40);
+                        flex.addChild(timeLabel).marginRight(20).flexShrink(1);
                     }];
             
                     flex.addChild(dislikeButton).width(20).height(20);
                 }];
                 
             }];
-            flex.addChild(imageView).width(150).aspectRatio(4.0/3);
+            flex.addChild(imageView).width(145).aspectRatio(4.0/3);
         }];
         
     }

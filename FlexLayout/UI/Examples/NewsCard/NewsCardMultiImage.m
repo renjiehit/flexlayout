@@ -54,7 +54,7 @@
             [flex.addChild(FLContainer).direction(FLFlexDirectionRow) define:^(FlexLayout *flex) {
                 flex.justifyContent(FLJustifySpaceBetween).marginTop(10);
                 
-                [flex.addChild(FLContainer).direction(FLFlexDirectionRow) define:^(FlexLayout *flex) {
+                [flex.addChild(FLContainer).direction(FLFlexDirectionRow).alignItems(FLAlignCenter) define:^(FlexLayout *flex) {
                     flex.addChild(sourceLabel).marginRight(10);
                     flex.addChild(commentLabel).marginRight(10);
                     flex.addChild(timeLabel).marginRight(40);

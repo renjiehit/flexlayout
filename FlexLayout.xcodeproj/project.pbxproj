@@ -23,6 +23,7 @@
 		8FF44A64217F21B600403E9C /* NewsCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A63217F21B600403E9C /* NewsCardViewController.m */; };
 		8FF44A67217F21E400403E9C /* NewsCardSingleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A66217F21E400403E9C /* NewsCardSingleImage.m */; };
 		8FF44A6A217F21F700403E9C /* NewsCardMultiImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A69217F21F700403E9C /* NewsCardMultiImage.m */; };
+		8FF44A6E2180174300403E9C /* NewsCardVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A6D2180174300403E9C /* NewsCardVideo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,8 @@
 		8FF44A68217F21F700403E9C /* NewsCardMultiImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsCardMultiImage.h; sourceTree = "<group>"; };
 		8FF44A69217F21F700403E9C /* NewsCardMultiImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsCardMultiImage.m; sourceTree = "<group>"; };
 		8FF44A6B217F26A500403E9C /* FlexHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlexHeaders.h; sourceTree = "<group>"; };
+		8FF44A6C2180174300403E9C /* NewsCardVideo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsCardVideo.h; sourceTree = "<group>"; };
+		8FF44A6D2180174300403E9C /* NewsCardVideo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsCardVideo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +197,8 @@
 				8FF44A66217F21E400403E9C /* NewsCardSingleImage.m */,
 				8FF44A62217F21B600403E9C /* NewsCardViewController.h */,
 				8FF44A63217F21B600403E9C /* NewsCardViewController.m */,
+				8FF44A6C2180174300403E9C /* NewsCardVideo.h */,
+				8FF44A6D2180174300403E9C /* NewsCardVideo.m */,
 			);
 			path = NewsCard;
 			sourceTree = "<group>";
@@ -317,6 +322,7 @@
 				8F03BB6A213F83EF0017D5ED /* UIView+FlexLayout.m in Sources */,
 				8FD9DAF82175F645002EF362 /* FLVirtualView.m in Sources */,
 				8F03BB49213CE5D20017D5ED /* AppDelegate.m in Sources */,
+				8FF44A6E2180174300403E9C /* NewsCardVideo.m in Sources */,
 				8FF44A67217F21E400403E9C /* NewsCardSingleImage.m in Sources */,
 				8FF44A6A217F21F700403E9C /* NewsCardMultiImage.m in Sources */,
 				8FF44A64217F21B600403E9C /* NewsCardViewController.m in Sources */,
