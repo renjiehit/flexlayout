@@ -39,9 +39,9 @@
         
         
         [self.flex.direction(FLFlexDirectionColumn) define:^(FlexLayout *flex) {
-            [flex.addChild(coverView).aspectRatio(16.0/9).flexGrow(1.0) define:^(FlexLayout *flex) {
+            [flex.addChild(coverView).aspectRatio(16.0/9).grow(1.0) define:^(FlexLayout *flex) {
                 [flex.addChild(FLContainer) define:^(FlexLayout *flex) {
-                    flex.justifyContent(FLJustifyCenter).alignItems(FLAlignCenter).flexGrow(1.0);
+                    flex.justifyContent(FLJustifyCenter).alignItems(FLAlignCenter).grow(1.0);
                     flex.addChild(playButton).width(60).aspectRatio(1.0);
                 }];
                 [flex.addChild(titleBackImageView) define:^(FlexLayout *flex) {

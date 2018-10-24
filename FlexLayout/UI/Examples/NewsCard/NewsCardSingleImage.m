@@ -39,16 +39,16 @@
         
         [self.flex.direction(FLFlexDirectionRow).padding(15).justifyContent(FLJustifySpaceBetween) define:^(FlexLayout *flex) {
             [flex.addChild(FLContainer).direction(FLFlexDirectionColumn) define:^(FlexLayout *flex) {
-                flex.justifyContent(FLJustifySpaceBetween).flexShrink(1.0).marginRight(10);
-                flex.addChild(titleLabel).flexShrink(1.0).marginTop(10);
+                flex.justifyContent(FLJustifySpaceBetween).shrink(1.0).marginRight(10);
+                flex.addChild(titleLabel).shrink(1.0).marginTop(10);
                 [flex.addChild(FLContainer).direction(FLFlexDirectionRow).marginBottom(10) define:^(FlexLayout *flex) {
                     flex.justifyContent(FLJustifySpaceBetween);
                     
-                    [flex.addChild(FLContainer).direction(FLFlexDirectionRow).flexShrink(1) define:^(FlexLayout *flex) {
+                    [flex.addChild(FLContainer).direction(FLFlexDirectionRow).shrink(1) define:^(FlexLayout *flex) {
                         flex.alignItems(FLAlignCenter);
                         flex.addChild(sourceLabel).marginRight(10);
                         flex.addChild(commentLabel).marginRight(10);
-                        flex.addChild(timeLabel).marginRight(20).flexShrink(1);
+                        flex.addChild(timeLabel).marginRight(20).shrink(1);
                     }];
             
                     flex.addChild(dislikeButton).width(20).height(20);

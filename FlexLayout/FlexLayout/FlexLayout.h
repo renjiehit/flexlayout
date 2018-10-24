@@ -23,12 +23,12 @@
 - (FlexLayout * (^)(FLAlign alignItems))alignItems;
 - (FlexLayout * (^)(FLAlign alignSelf))alignSelf;
 - (FlexLayout * (^)(FLPositionType position))position;
-- (FlexLayout * (^)(FLWrap flexWrap))flexWrap;
+- (FlexLayout * (^)(FLWrap flexWrap))wrap;
 - (FlexLayout * (^)(FLOverflow overflow))overflow;
 - (FlexLayout * (^)(FLDisplay display))display;
 
-- (FlexLayout * (^)(CGFloat flexGrow))flexGrow;
-- (FlexLayout * (^)(CGFloat flexShrink))flexShrink;
+- (FlexLayout * (^)(CGFloat flexGrow))grow;
+- (FlexLayout * (^)(CGFloat flexShrink))shrink;
 - (FlexLayout * (^)(CGFloat flexBasis))flexBasis;
 
 - (FlexLayout * (^)(CGFloat top))top;

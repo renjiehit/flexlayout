@@ -268,7 +268,7 @@ static YGConfigRef flexConfig;
     };
 }
 
-- (FlexLayout * (^)(FLWrap flexWrap))flexWrap {
+- (FlexLayout * (^)(FLWrap flexWrap))wrap {
     return ^FlexLayout *(FLWrap flexWrap) {
         [self fl_setFlexWrap:(YGWrap)flexWrap];
         return self;
@@ -289,14 +289,14 @@ static YGConfigRef flexConfig;
     };
 }
 
-- (FlexLayout * (^)(CGFloat flexGrow))flexGrow {
+- (FlexLayout * (^)(CGFloat flexGrow))grow {
     return ^FlexLayout *(CGFloat flexGrow) {
         [self fl_setFlexGrow:flexGrow];
         return self;
     };
 }
 
-- (FlexLayout * (^)(CGFloat flexShrink))flexShrink {
+- (FlexLayout * (^)(CGFloat flexShrink))shrink {
     return ^FlexLayout *(CGFloat flexShrink) {
         [self fl_setFlexShrink:flexShrink];
         return self;

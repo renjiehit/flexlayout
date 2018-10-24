@@ -65,7 +65,7 @@
                 }];
             }];
             
-            [flex.addChild(FLContainer).direction(FLFlexDirectionColumn).justifyContent(FLJustifySpaceBetween).flexGrow(1.0) define:^(FlexLayout *flex) { // container2
+            [flex.addChild(FLContainer).direction(FLFlexDirectionColumn).justifyContent(FLJustifySpaceBetween).grow(1.0) define:^(FlexLayout *flex) { // container2
                 flex.addChild(label);
                 flex.addChild(label1);
             }];
@@ -73,7 +73,7 @@
         
         [flex.addChild(FLContainer).direction(FLFlexDirectionRow).marginTop(20) define:^(FlexLayout *flex) {
             
-            flex.addChild(label2).flexShrink(1.0).marginRight(20);//.marginTop(20);
+            flex.addChild(label2).shrink(1.0).marginRight(20);//.marginTop(20);
             flex.addChild([UIView new]).width(60);
         }];
      }];

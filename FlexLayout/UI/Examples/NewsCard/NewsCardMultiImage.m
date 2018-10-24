@@ -44,11 +44,11 @@
             flex.addChild(titleLabel);
             [flex.addChild(FLContainer).direction(FLFlexDirectionRow) define:^(FlexLayout *flex) {
                 flex.marginTop(10);
-                flex.addChild(imageView).aspectRatio(4.0/3).flexGrow(1.0);
+                flex.addChild(imageView).aspectRatio(4.0/3).grow(1.0);
                 flex.addChild(FLContainer).width(5);
-                flex.addChild(imageView1).aspectRatio(4.0/3).flexGrow(1.0);
+                flex.addChild(imageView1).aspectRatio(4.0/3).grow(1.0);
                 flex.addChild(FLContainer).width(5);
-                flex.addChild(imageView2).aspectRatio(4.0/3).flexGrow(1.0);
+                flex.addChild(imageView2).aspectRatio(4.0/3).grow(1.0);
             }];
             
             [flex.addChild(FLContainer).direction(FLFlexDirectionRow) define:^(FlexLayout *flex) {
