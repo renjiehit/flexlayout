@@ -15,6 +15,8 @@
 
 @property (nonatomic, readwrite, assign, setter=setEnabled:) BOOL isEnabled;
 @property (nonatomic, readonly, assign) BOOL isLeaf;
+@property (nonatomic, readonly, assign) BOOL isDirty;
+- (void)markDirty;
 
 - (FlexLayout * (^)(FLDirection direction))layoutDirection;
 - (FlexLayout * (^)(FLFlexDirection flexDirection))direction;

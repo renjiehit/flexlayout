@@ -23,6 +23,8 @@
 		8FF44A67217F21E400403E9C /* NewsCardSingleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A66217F21E400403E9C /* NewsCardSingleImage.m */; };
 		8FF44A6A217F21F700403E9C /* NewsCardMultiImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A69217F21F700403E9C /* NewsCardMultiImage.m */; };
 		8FF44A6E2180174300403E9C /* NewsCardVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A6D2180174300403E9C /* NewsCardVideo.m */; };
+		8FF44A8321831E8A00403E9C /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A8221831E8A00403E9C /* TableViewController.m */; };
+		8FF44A8621832D7200403E9C /* MethodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF44A8521832D7200403E9C /* MethodCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,10 @@
 		8FF44A6B217F26A500403E9C /* FlexHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlexHeaders.h; sourceTree = "<group>"; };
 		8FF44A6C2180174300403E9C /* NewsCardVideo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsCardVideo.h; sourceTree = "<group>"; };
 		8FF44A6D2180174300403E9C /* NewsCardVideo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsCardVideo.m; sourceTree = "<group>"; };
+		8FF44A8121831E8A00403E9C /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		8FF44A8221831E8A00403E9C /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		8FF44A8421832D7200403E9C /* MethodCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MethodCell.h; sourceTree = "<group>"; };
+		8FF44A8521832D7200403E9C /* MethodCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MethodCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +167,7 @@
 		8FF44A55217F178D00403E9C /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				8FF44A8021831E8A00403E9C /* TableView */,
 				8FF44A61217F21A700403E9C /* NewsCard */,
 				8FF44A5D217F1CEC00403E9C /* Introduce */,
 			);
@@ -198,6 +205,17 @@
 				8FF44A6D2180174300403E9C /* NewsCardVideo.m */,
 			);
 			path = NewsCard;
+			sourceTree = "<group>";
+		};
+		8FF44A8021831E8A00403E9C /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				8FF44A8121831E8A00403E9C /* TableViewController.h */,
+				8FF44A8221831E8A00403E9C /* TableViewController.m */,
+				8FF44A8421832D7200403E9C /* MethodCell.h */,
+				8FF44A8521832D7200403E9C /* MethodCell.m */,
+			);
+			path = TableView;
 			sourceTree = "<group>";
 		};
 		940E5460C804836CB3CC9277 /* Pods */ = {
@@ -314,6 +332,8 @@
 				8F03BB67213E83660017D5ED /* FlexLayout.m in Sources */,
 				8FF44A50217ECB8F00403E9C /* Utils.m in Sources */,
 				8FF44A60217F1CEC00403E9C /* IntroViewController.m in Sources */,
+				8FF44A8621832D7200403E9C /* MethodCell.m in Sources */,
+				8FF44A8321831E8A00403E9C /* TableViewController.m in Sources */,
 				8F03BB57213CE5D20017D5ED /* main.m in Sources */,
 				8F03BB6A213F83EF0017D5ED /* UIView+FlexLayout.m in Sources */,
 				8FD9DAF82175F645002EF362 /* FLVirtualView.m in Sources */,

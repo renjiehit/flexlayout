@@ -160,6 +160,22 @@ static YGConfigRef flexConfig;
     return self;
 }
 
+- (void)markDirty {
+    if (self.isDirty || !self.isLeaf) {
+        return;
+    }
+    
+    // Yoga is not happy if we try to mark a node as "dirty" before we have set
+    // the measure function. Since we already know that this is a leaf,
+    // this *should* be fine. Forgive me Hack Gods.
+    const YGNodeRef node = self.node;
+    if (YGNodeGetMeasureFunc(node) == NULL) {
+        YGNodeSetMeasureFunc(node, FLMeasureView);
+    }
+    
+    YGNodeMarkDirty(node);
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"<%@:%p> element:%@", [self class], &self, self.element];
 }
@@ -181,6 +197,10 @@ static YGConfigRef flexConfig;
         return YES;
     }
     return NO;
+}
+
+- (BOOL)isDirty {
+    return YGNodeIsDirty(self.node);
 }
 
 #pragma mark - private method

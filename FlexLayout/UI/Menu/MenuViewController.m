@@ -9,10 +9,12 @@
 #import "MenuViewController.h"
 #import "IntroViewController.h"
 #import "NewsCardViewController.h"
+#import "TableViewController.h"
 
 typedef NS_ENUM(NSUInteger, ExampleType) {
     ETIntroController,
     ETNewsCard,
+    ETTableView,
     ETCount,
 };
 
@@ -55,6 +57,9 @@ typedef NS_ENUM(NSUInteger, ExampleType) {
         case ETNewsCard:
             name = @"News Card";
             break;
+        case ETTableView:
+            name = @"TableView";
+            break;
         case ETCount:
             name = @"View Controller";
             break;
@@ -73,6 +78,9 @@ typedef NS_ENUM(NSUInteger, ExampleType) {
             break;
         case ETNewsCard:
             controller = [NewsCardViewController new];
+            break;
+        case ETTableView:
+            controller = [TableViewController new];
             break;
         case ETCount:
             controller = [IntroViewController new];
