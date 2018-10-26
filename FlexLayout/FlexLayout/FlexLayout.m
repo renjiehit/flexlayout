@@ -9,7 +9,6 @@
 #import "FlexLayout+Private.h"
 #import "FlexLayoutProtocol.h"
 #import <yoga/Yoga.h>
-#import <YogaKit/YGLayout.h>
 
 #define FL_PROPERTY(type, lowercased_name, capitalized_name)    \
 - (type)fl_##lowercased_name                                         \
@@ -305,217 +304,217 @@ static YGConfigRef flexConfig;
 
 - (FlexLayout * (^)(CGFloat flexBasis))flexBasis {
     return ^FlexLayout *(CGFloat flexBasis) {
-        [self fl_setFlexBasis:YGPointValue(flexBasis)];
+        [self fl_setFlexBasis:FLPointValue(flexBasis)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat top))top {
     return ^FlexLayout *(CGFloat top) {
-        [self fl_setTop:YGPointValue(top)];
+        [self fl_setTop:FLPointValue(top)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat left))left {
     return ^FlexLayout *(CGFloat left) {
-        [self fl_setLeft:YGPointValue(left)];
+        [self fl_setLeft:FLPointValue(left)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat bottom))bottom {
     return ^FlexLayout *(CGFloat bottom) {
-        [self fl_setBottom:YGPointValue(bottom)];
+        [self fl_setBottom:FLPointValue(bottom)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat right))right {
     return ^FlexLayout *(CGFloat right) {
-        [self fl_setRight:YGPointValue(right)];
+        [self fl_setRight:FLPointValue(right)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat start))start {
     return ^FlexLayout *(CGFloat start) {
-        [self fl_setStart:YGPointValue(start)];
+        [self fl_setStart:FLPointValue(start)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat end))end {
     return ^FlexLayout *(CGFloat end) {
-        [self fl_setEnd:YGPointValue(end)];
+        [self fl_setEnd:FLPointValue(end)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat marginTop))marginTop {
     return ^FlexLayout *(CGFloat marginTop) {
-        [self fl_setMarginTop:YGPointValue(marginTop)];
+        [self fl_setMarginTop:FLPointValue(marginTop)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat marginLeft))marginLeft {
     return ^FlexLayout *(CGFloat marginLeft) {
-        [self fl_setMarginLeft:YGPointValue(marginLeft)];
+        [self fl_setMarginLeft:FLPointValue(marginLeft)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat marginBottom))marginBottom {
     return ^FlexLayout *(CGFloat marginBottom) {
-        [self fl_setMarginBottom:YGPointValue(marginBottom)];
+        [self fl_setMarginBottom:FLPointValue(marginBottom)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat marginRight))marginRight {
     return ^FlexLayout *(CGFloat marginRight) {
-        [self fl_setMarginRight:YGPointValue(marginRight)];
+        [self fl_setMarginRight:FLPointValue(marginRight)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat marginStart))marginStart {
     return ^FlexLayout *(CGFloat marginStart) {
-        [self fl_setMarginStart:YGPointValue(marginStart)];
+        [self fl_setMarginStart:FLPointValue(marginStart)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat marginEnd))marginEnd {
     return ^FlexLayout *(CGFloat marginEnd) {
-        [self fl_setMarginEnd:YGPointValue(marginEnd)];
+        [self fl_setMarginEnd:FLPointValue(marginEnd)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat marginHorizontal))marginHorizontal {
     return ^FlexLayout *(CGFloat marginHorizontal) {
-        [self fl_setMarginHorizontal:YGPointValue(marginHorizontal)];
+        [self fl_setMarginHorizontal:FLPointValue(marginHorizontal)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat marginVertical))marginVertical {
     return ^FlexLayout *(CGFloat marginVertical) {
-        [self fl_setMarginVertical:YGPointValue(marginVertical)];
+        [self fl_setMarginVertical:FLPointValue(marginVertical)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat margin))margin {
     return ^FlexLayout *(CGFloat margin) {
-        [self fl_setMargin:YGPointValue(margin)];
+        [self fl_setMargin:FLPointValue(margin)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat paddingTop))paddingTop {
     return ^FlexLayout *(CGFloat paddingTop) {
-        [self fl_setPaddingTop:YGPointValue(paddingTop)];
+        [self fl_setPaddingTop:FLPointValue(paddingTop)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat paddingLeft))paddingLeft {
     return ^FlexLayout *(CGFloat paddingLeft) {
-        [self fl_setPaddingLeft:YGPointValue(paddingLeft)];
+        [self fl_setPaddingLeft:FLPointValue(paddingLeft)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat paddingBottom))paddingBottom {
     return ^FlexLayout *(CGFloat paddingBottom) {
-        [self fl_setPaddingBottom:YGPointValue(paddingBottom)];
+        [self fl_setPaddingBottom:FLPointValue(paddingBottom)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat paddingRight))paddingRight {
     return ^FlexLayout *(CGFloat paddingRight) {
-        [self fl_setPaddingRight:YGPointValue(paddingRight)];
+        [self fl_setPaddingRight:FLPointValue(paddingRight)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat paddingStart))paddingStart {
     return ^FlexLayout *(CGFloat paddingStart) {
-        [self fl_setPaddingStart:YGPointValue(paddingStart)];
+        [self fl_setPaddingStart:FLPointValue(paddingStart)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat paddingEnd))paddingEnd {
     return ^FlexLayout *(CGFloat paddingEnd) {
-        [self fl_setPaddingEnd:YGPointValue(paddingEnd)];
+        [self fl_setPaddingEnd:FLPointValue(paddingEnd)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat paddingHorizontal))paddingHorizontal {
     return ^FlexLayout *(CGFloat paddingHorizontal) {
-        [self fl_setPaddingHorizontal:YGPointValue(paddingHorizontal)];
+        [self fl_setPaddingHorizontal:FLPointValue(paddingHorizontal)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat paddingVertical))paddingVertical {
     return ^FlexLayout *(CGFloat paddingVertical) {
-        [self fl_setPaddingVertical:YGPointValue(paddingVertical)];
+        [self fl_setPaddingVertical:FLPointValue(paddingVertical)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat padding))padding {
     return ^FlexLayout *(CGFloat padding) {
-        [self fl_setPadding:YGPointValue(padding)];
+        [self fl_setPadding:FLPointValue(padding)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat width))width {
     return ^FlexLayout *(CGFloat width) {
-        [self fl_setWidth:YGPointValue(width)];
+        [self fl_setWidth:FLPointValue(width)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat height))height {
     return ^FlexLayout *(CGFloat height) {
-        [self fl_setHeight:YGPointValue(height)];
+        [self fl_setHeight:FLPointValue(height)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat minWidth))minWidth {
     return ^FlexLayout *(CGFloat minWidth) {
-        [self fl_setMinWidth:YGPointValue(minWidth)];
+        [self fl_setMinWidth:FLPointValue(minWidth)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat minHeight))minHeight {
     return ^FlexLayout *(CGFloat minHeight) {
-        [self fl_setMinHeight:YGPointValue(minHeight)];
+        [self fl_setMinHeight:FLPointValue(minHeight)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat maxWidth))maxWidth {
     return ^FlexLayout *(CGFloat maxWidth) {
-        [self fl_setMaxWidth:YGPointValue(maxWidth)];
+        [self fl_setMaxWidth:FLPointValue(maxWidth)];
         return self;
     };
 }
 
 - (FlexLayout * (^)(CGFloat maxHeight))maxHeight {
     return ^FlexLayout *(CGFloat maxHeight) {
-        [self fl_setMaxHeight:YGPointValue(maxHeight)];
+        [self fl_setMaxHeight:FLPointValue(maxHeight)];
         return self;
     };
 }
@@ -652,6 +651,11 @@ static CGFloat FLRoundPixelValue(CGFloat value)
     });
     
     return roundf(value * scale) / scale;
+}
+
+YGValue FLPointValue(CGFloat value)
+{
+    return (YGValue) { .value = value, .unit = YGUnitPoint };
 }
 
 static CGFloat FLSanitizeMeasurement(

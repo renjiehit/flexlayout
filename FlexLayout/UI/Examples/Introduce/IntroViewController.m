@@ -60,8 +60,8 @@
             
             [flex.addChild(imageView).height(50).aspectRatio(1.0).marginRight(20) define:^(FlexLayout *flex) { //image view layout
                 
-                [flex.addChild(iconCornerView) define:^(FlexLayout *flex) { // corner view layout
-                    flex.width(10).aspectRatio(1.0).left(40).top(40);
+                [flex.addChild(iconCornerView).position(FLPositionTypeAbsolute) define:^(FlexLayout *flex) { // corner view layout
+                    flex.width(10).aspectRatio(1.0).right(0).bottom(0);
                 }];
             }];
             

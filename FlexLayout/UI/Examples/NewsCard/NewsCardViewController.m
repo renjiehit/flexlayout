@@ -40,7 +40,9 @@
         flex.addChild(cardVideo).marginTop(20);
     }];
     
+    NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
     [contentView.flex applyLayout:FLAjustHeight];
+    NSLog(@"------ time consuming: %lf ", [[NSDate date] timeIntervalSince1970] - timeInterval);
     
     scrollView.contentSize = contentView.frame.size;
     

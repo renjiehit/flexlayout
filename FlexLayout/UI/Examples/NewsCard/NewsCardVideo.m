@@ -45,7 +45,7 @@
                     flex.addChild(playButton).width(60).aspectRatio(1.0);
                 }];
                 [flex.addChild(titleBackImageView) define:^(FlexLayout *flex) {
-                    flex.position(FLPositionTypeAbsolute).left(0).top(0).right(0).height(60); // overlay!!!
+                    flex.position(FLPositionTypeAbsolute).left(0).top(0).right(0).aspectRatio(40.0/8); // overlay!!!
                 }];
                 [flex.addChild(titleLabel) define:^(FlexLayout *flex) {
                     flex.position(FLPositionTypeAbsolute).left(0).top(0).right(0);

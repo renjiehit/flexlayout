@@ -9,7 +9,6 @@
 #import "FlexLayoutProtocol.h"
 #import "FlexLayout.h"
 #import <yoga/Yoga.h>
-#import <YogaKit/YGLayout.h>
 
 @interface FlexLayout ()
 
