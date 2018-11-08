@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6E16BBA0EED1D0FDE5B0E721ECABE6E6"
+               BlueprintIdentifier = "DBDBAC77EBF759ED8E02E55BB769426F"
                BlueprintName = "Pods-FlexLayout"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "libPods-FlexLayout.a">

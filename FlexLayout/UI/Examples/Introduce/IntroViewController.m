@@ -11,6 +11,8 @@
 #import "FLVirtualView.h"
 #import "Utils.h"
 
+#import "FlexLayout+Properties.h"
+
 @interface IntroViewController ()
 
 @property (nonatomic, strong) UIView *rootView;
@@ -77,6 +79,8 @@
             flex.addChild([UIView new]).width(60);
         }];
      }];
+    
+    rootView.flex.flDirection = FLDirectionInherit;
     
     NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
     [rootView.flex applyLayout:FLAjustHeight];

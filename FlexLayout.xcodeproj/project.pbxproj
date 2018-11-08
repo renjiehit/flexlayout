@@ -43,6 +43,7 @@
 		8F03BB68213F83EF0017D5ED /* UIView+FlexLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+FlexLayout.h"; sourceTree = "<group>"; };
 		8F03BB69213F83EF0017D5ED /* UIView+FlexLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+FlexLayout.m"; sourceTree = "<group>"; };
 		8F03BB6B213F86E60017D5ED /* FLEnums.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLEnums.h; sourceTree = "<group>"; };
+		8F0E7F1321944B05003AB31C /* FlexLayout+Properties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FlexLayout+Properties.h"; sourceTree = "<group>"; };
 		8FD9DAF62175F645002EF362 /* FLVirtualView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLVirtualView.h; sourceTree = "<group>"; };
 		8FD9DAF72175F645002EF362 /* FLVirtualView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLVirtualView.m; sourceTree = "<group>"; };
 		8FDF73DF21783F7100A76827 /* FlexLayoutProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlexLayoutProtocol.h; sourceTree = "<group>"; };
@@ -122,6 +123,7 @@
 			children = (
 				8FDF73DF21783F7100A76827 /* FlexLayoutProtocol.h */,
 				8FDF73E0217864E600A76827 /* FlexLayout+Private.h */,
+				8F0E7F1321944B05003AB31C /* FlexLayout+Properties.h */,
 				8F03BB65213E83660017D5ED /* FlexLayout.h */,
 				8F03BB66213E83660017D5ED /* FlexLayout.m */,
 				8FD9DAF62175F645002EF362 /* FLVirtualView.h */,
@@ -476,8 +478,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"Yoga\"",
-					"-l\"YogaKit\"",
 					"-framework",
 					"\"UIKit\"",
 					"-lc++",
@@ -501,8 +501,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"Yoga\"",
-					"-l\"YogaKit\"",
 					"-framework",
 					"\"UIKit\"",
 					"-lc++",

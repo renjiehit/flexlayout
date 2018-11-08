@@ -48,7 +48,7 @@
                     flex.position(FLPositionTypeAbsolute).left(0).top(0).right(0).aspectRatio(40.0/8); // overlay!!!
                 }];
                 [flex.addChild(titleLabel) define:^(FlexLayout *flex) {
-                    flex.position(FLPositionTypeAbsolute).left(0).top(0).right(0);
+                    flex.position(FLPositionTypeAbsolute).left(15).top(15).right(15);
                 }];
             }];
             [flex.addChild(bottomView).direction(FLFlexDirectionRow).height(64) define:^(FlexLayout *flex) {

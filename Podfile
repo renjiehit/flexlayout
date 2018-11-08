@@ -7,6 +7,6 @@ target 'FlexLayout' do
 
   # Pods for FlexLayout
 pod 'Yoga', '~> 1.9.0'
-pod 'YogaKit', '~> 1.9.0' 
+  #pod 'YogaKit', '~> 1.9.0' 
 
 end
