@@ -114,4 +114,9 @@ typedef NS_OPTIONS(NSInteger, FLLayoutMode) {
     FLAjustHeight = 1 << 1,
 };
 
+typedef struct FLValue {
+    float value;
+    FLUnit unit;
+} FLValue;
+
 #endif /* FLEnums_h */

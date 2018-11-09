@@ -9,66 +9,62 @@
 #import "FlexLayout.h"
 #import <yoga/Yoga.h>
 
+/*
+ * 半开放FlexLayout的常规读写属性，为一些特殊场合制定。推荐使用链式调用
+ */
+
 @interface FlexLayout ()
 
 @property (nonatomic, readwrite, assign) FLDirection flDirection;
-//@property (nonatomic, readwrite, assign) YGFlexDirection flexDirection;
-//@property (nonatomic, readwrite, assign) YGJustify justifyContent;
-//@property (nonatomic, readwrite, assign) YGAlign alignContent;
-//@property (nonatomic, readwrite, assign) YGAlign alignItems;
-//@property (nonatomic, readwrite, assign) YGAlign alignSelf;
-//@property (nonatomic, readwrite, assign) YGPositionType position;
-//@property (nonatomic, readwrite, assign) YGWrap flexWrap;
-//@property (nonatomic, readwrite, assign) YGOverflow overflow;
-//@property (nonatomic, readwrite, assign) YGDisplay display;
-//
-//@property (nonatomic, readwrite, assign) CGFloat flexGrow;
-//@property (nonatomic, readwrite, assign) CGFloat flexShrink;
-//@property (nonatomic, readwrite, assign) YGValue flexBasis;
-//
-//@property (nonatomic, readwrite, assign) YGValue left;
-//@property (nonatomic, readwrite, assign) YGValue top;
-//@property (nonatomic, readwrite, assign) YGValue right;
-//@property (nonatomic, readwrite, assign) YGValue bottom;
-//@property (nonatomic, readwrite, assign) YGValue start;
-//@property (nonatomic, readwrite, assign) YGValue end;
-//
-//@property (nonatomic, readwrite, assign) YGValue marginLeft;
-//@property (nonatomic, readwrite, assign) YGValue marginTop;
-//@property (nonatomic, readwrite, assign) YGValue marginRight;
-//@property (nonatomic, readwrite, assign) YGValue marginBottom;
-//@property (nonatomic, readwrite, assign) YGValue marginStart;
-//@property (nonatomic, readwrite, assign) YGValue marginEnd;
-//@property (nonatomic, readwrite, assign) YGValue marginHorizontal;
-//@property (nonatomic, readwrite, assign) YGValue marginVertical;
-//@property (nonatomic, readwrite, assign) YGValue margin;
-//
-//@property (nonatomic, readwrite, assign) YGValue paddingLeft;
-//@property (nonatomic, readwrite, assign) YGValue paddingTop;
-//@property (nonatomic, readwrite, assign) YGValue paddingRight;
-//@property (nonatomic, readwrite, assign) YGValue paddingBottom;
-//@property (nonatomic, readwrite, assign) YGValue paddingStart;
-//@property (nonatomic, readwrite, assign) YGValue paddingEnd;
-//@property (nonatomic, readwrite, assign) YGValue paddingHorizontal;
-//@property (nonatomic, readwrite, assign) YGValue paddingVertical;
-//@property (nonatomic, readwrite, assign) YGValue padding;
-//
-//@property (nonatomic, readwrite, assign) CGFloat borderLeftWidth;
-//@property (nonatomic, readwrite, assign) CGFloat borderTopWidth;
-//@property (nonatomic, readwrite, assign) CGFloat borderRightWidth;
-//@property (nonatomic, readwrite, assign) CGFloat borderBottomWidth;
-//@property (nonatomic, readwrite, assign) CGFloat borderStartWidth;
-//@property (nonatomic, readwrite, assign) CGFloat borderEndWidth;
-//@property (nonatomic, readwrite, assign) CGFloat borderWidth;
-//
-//@property (nonatomic, readwrite, assign) YGValue width;
-//@property (nonatomic, readwrite, assign) YGValue height;
-//@property (nonatomic, readwrite, assign) YGValue minWidth;
-//@property (nonatomic, readwrite, assign) YGValue minHeight;
-//@property (nonatomic, readwrite, assign) YGValue maxWidth;
-//@property (nonatomic, readwrite, assign) YGValue maxHeight;
-//
-//// Yoga specific properties, not compatible with flexbox specification
-//@property (nonatomic, readwrite, assign) CGFloat aspectRatio;
+@property (nonatomic, readwrite, assign) FLFlexDirection flFlexDirection;
+@property (nonatomic, readwrite, assign) FLJustify flJustifyContent;
+@property (nonatomic, readwrite, assign) FLAlign flAlignContent;
+@property (nonatomic, readwrite, assign) FLAlign flAlignItems;
+@property (nonatomic, readwrite, assign) FLAlign flAlignSelf;
+@property (nonatomic, readwrite, assign) FLPositionType flPosition;
+@property (nonatomic, readwrite, assign) FLWrap flFlexWrap;
+@property (nonatomic, readwrite, assign) FLOverflow flOverflow;
+@property (nonatomic, readwrite, assign) FLDisplay flDisplay;
+
+@property (nonatomic, readwrite, assign) CGFloat flFlexGrow;
+@property (nonatomic, readwrite, assign) CGFloat flFlexShrink;
+@property (nonatomic, readwrite, assign) FLValue flFlexBasis;
+
+@property (nonatomic, readwrite, assign) FLValue flLeft;
+@property (nonatomic, readwrite, assign) FLValue flTop;
+@property (nonatomic, readwrite, assign) FLValue flRight;
+@property (nonatomic, readwrite, assign) FLValue flBottom;
+@property (nonatomic, readwrite, assign) FLValue flStart;
+@property (nonatomic, readwrite, assign) FLValue flEnd;
+
+@property (nonatomic, readwrite, assign) FLValue flMarginLeft;
+@property (nonatomic, readwrite, assign) FLValue flMarginTop;
+@property (nonatomic, readwrite, assign) FLValue flMarginRight;
+@property (nonatomic, readwrite, assign) FLValue flMarginBottom;
+@property (nonatomic, readwrite, assign) FLValue flMarginStart;
+@property (nonatomic, readwrite, assign) FLValue flMarginEnd;
+@property (nonatomic, readwrite, assign) FLValue flMarginHorizontal;
+@property (nonatomic, readwrite, assign) FLValue flMarginVertical;
+@property (nonatomic, readwrite, assign) FLValue flMargin;
+
+@property (nonatomic, readwrite, assign) FLValue flPaddingLeft;
+@property (nonatomic, readwrite, assign) FLValue flPaddingTop;
+@property (nonatomic, readwrite, assign) FLValue flPaddingRight;
+@property (nonatomic, readwrite, assign) FLValue flPaddingBottom;
+@property (nonatomic, readwrite, assign) FLValue flPaddingStart;
+@property (nonatomic, readwrite, assign) FLValue flPaddingEnd;
+@property (nonatomic, readwrite, assign) FLValue flPaddingHorizontal;
+@property (nonatomic, readwrite, assign) FLValue flPaddingVertical;
+@property (nonatomic, readwrite, assign) FLValue flPadding;
+
+@property (nonatomic, readwrite, assign) FLValue flWidth;
+@property (nonatomic, readwrite, assign) FLValue flHeight;
+@property (nonatomic, readwrite, assign) FLValue flMinWidth;
+@property (nonatomic, readwrite, assign) FLValue flMinHeight;
+@property (nonatomic, readwrite, assign) FLValue flMaxWidth;
+@property (nonatomic, readwrite, assign) FLValue flMaxHeight;
+
+// Yoga specific properties, not compatible with flexbox specification
+@property (nonatomic, readwrite, assign) CGFloat flAspectRatio;
 
 @end

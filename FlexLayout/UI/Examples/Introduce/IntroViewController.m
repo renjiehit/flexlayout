@@ -59,6 +59,8 @@
     [rootView.flex./*direction(FLFlexDirectionColumn).*/padding(20) define:^(FlexLayout *flex) {
         
         [flex.addChild(FLContainer).direction(FLFlexDirectionRow) define:^(FlexLayout *flex) {
+//            flex.flFlexDirection = FLFlexDirectionRow;
+//            flex.flAlignContent = FLAlignCenter;
             
             [flex.addChild(imageView).height(50).aspectRatio(1.0).marginRight(20) define:^(FlexLayout *flex) { //image view layout
                 

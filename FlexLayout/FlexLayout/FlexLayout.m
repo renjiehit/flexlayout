@@ -8,91 +8,93 @@
 
 #import "FlexLayout+Private.h"
 #import "FlexLayoutProtocol.h"
-#import <yoga/Yoga.h>
+#import "FlexLayout+Properties.h"
 
-#define FL_P_PROPERTY(type, lowercased_name, capitalized_name)    \
+#pragma mark - FlexLayout method macros for private getter & setter
+
+#define FL_P_PROPERTY(type, lowercased_name, capitalized_name)      \
 - (type)p_##lowercased_name                                         \
-{                                                               \
-return (type)YGNodeStyleGet##capitalized_name(self.node);       \
-}                                                               \
+{                                                                   \
+  return (type)YGNodeStyleGet##capitalized_name(self.node);         \
+}                                                                   \
 \
-- (void)p_set##capitalized_name:(type)lowercased_name             \
-{                                                               \
-YGNodeStyleSet##capitalized_name(self.node, lowercased_name);   \
+- (void)p_set##capitalized_name:(type)lowercased_name               \
+{                                                                   \
+  YGNodeStyleSet##capitalized_name(self.node, lowercased_name);     \
 }
 
-#define FL_P_VALUE_PROPERTY(lowercased_name, capitalized_name)                       \
-- (YGValue)p_##lowercased_name                                                         \
-{                                                                                  \
-  return YGNodeStyleGet##capitalized_name(self.node);                              \
-}                                                                                  \
+#define FL_P_VALUE_PROPERTY(lowercased_name, capitalized_name)                      \
+- (YGValue)p_##lowercased_name                                                      \
+{                                                                                   \
+  return YGNodeStyleGet##capitalized_name(self.node);                               \
+}                                                                                   \
 \
-- (void)p_set##capitalized_name:(YGValue)lowercased_name                             \
-{                                                                                  \
-  switch (lowercased_name.unit) {                                                  \
-     case YGUnitUndefined:                                                         \
-      YGNodeStyleSet##capitalized_name(self.node, lowercased_name.value);          \
-      break;                                                                       \
-    case YGUnitPoint:                                                              \
-      YGNodeStyleSet##capitalized_name(self.node, lowercased_name.value);          \
-      break;                                                                       \
-    case YGUnitPercent:                                                            \
-      YGNodeStyleSet##capitalized_name##Percent(self.node, lowercased_name.value); \
-      break;                                                                       \
-    default:                                                                       \
-      NSAssert(NO, @"Not implemented");                                            \
-  }                                                                                \
+- (void)p_set##capitalized_name:(YGValue)lowercased_name                            \
+{                                                                                   \
+  switch (lowercased_name.unit) {                                                   \
+     case YGUnitUndefined:                                                          \
+      YGNodeStyleSet##capitalized_name(self.node, lowercased_name.value);           \
+      break;                                                                        \
+    case YGUnitPoint:                                                               \
+      YGNodeStyleSet##capitalized_name(self.node, lowercased_name.value);           \
+      break;                                                                        \
+    case YGUnitPercent:                                                             \
+      YGNodeStyleSet##capitalized_name##Percent(self.node, lowercased_name.value);  \
+      break;                                                                        \
+    default:                                                                        \
+      NSAssert(NO, @"Not implemented");                                             \
+  }                                                                                 \
 }
 
-#define FL_P_AUTO_VALUE_PROPERTY(lowercased_name, capitalized_name)                  \
-- (YGValue)p_##lowercased_name                                                         \
-{                                                                                  \
-  return YGNodeStyleGet##capitalized_name(self.node);                              \
-}                                                                                  \
+#define FL_P_AUTO_VALUE_PROPERTY(lowercased_name, capitalized_name)                 \
+- (YGValue)p_##lowercased_name                                                      \
+{                                                                                   \
+  return YGNodeStyleGet##capitalized_name(self.node);                               \
+}                                                                                   \
 \
-- (void)p_set##capitalized_name:(YGValue)lowercased_name                             \
-{                                                                                  \
-  switch (lowercased_name.unit) {                                                  \
-    case YGUnitPoint:                                                              \
-      YGNodeStyleSet##capitalized_name(self.node, lowercased_name.value);          \
-      break;                                                                       \
-    case YGUnitPercent:                                                            \
-      YGNodeStyleSet##capitalized_name##Percent(self.node, lowercased_name.value); \
-      break;                                                                       \
-    case YGUnitAuto:                                                               \
-      YGNodeStyleSet##capitalized_name##Auto(self.node);                           \
-      break;                                                                       \
-    default:                                                                       \
-      NSAssert(NO, @"Not implemented");                                            \
-  }                                                                                \
+- (void)p_set##capitalized_name:(YGValue)lowercased_name                            \
+{                                                                                   \
+  switch (lowercased_name.unit) {                                                   \
+    case YGUnitPoint:                                                               \
+      YGNodeStyleSet##capitalized_name(self.node, lowercased_name.value);           \
+      break;                                                                        \
+    case YGUnitPercent:                                                             \
+      YGNodeStyleSet##capitalized_name##Percent(self.node, lowercased_name.value);  \
+      break;                                                                        \
+    case YGUnitAuto:                                                                \
+      YGNodeStyleSet##capitalized_name##Auto(self.node);                            \
+      break;                                                                        \
+    default:                                                                        \
+      NSAssert(NO, @"Not implemented");                                             \
+  }                                                                                 \
 }
 
 #define FL_P_VALUE_EDGE_PROPERTY(lowercased_name, capitalized_name, property, edge)   \
 FL_P_EDGE_PROPERTY_GETTER(YGValue, lowercased_name, capitalized_name, property, edge) \
 FL_P_VALUE_EDGE_PROPERTY_SETTER(lowercased_name, capitalized_name, property, edge)
 
-#define FL_P_VALUE_EDGE_PROPERTY_SETTER(objc_lowercased_name, objc_capitalized_name, c_name, edge) \
-- (void)p_set##objc_capitalized_name:(YGValue)objc_lowercased_name                                 \
-{                                                                                                \
-switch (objc_lowercased_name.unit) {                                                           \
-case YGUnitUndefined:                                                                        \
-YGNodeStyleSet##c_name(self.node, edge, objc_lowercased_name.value);                       \
-break;                                                                                     \
-case YGUnitPoint:                                                                            \
-YGNodeStyleSet##c_name(self.node, edge, objc_lowercased_name.value);                       \
-break;                                                                                     \
-case YGUnitPercent:                                                                          \
-YGNodeStyleSet##c_name##Percent(self.node, edge, objc_lowercased_name.value);              \
-break;                                                                                     \
-default:                                                                                     \
-NSAssert(NO, @"Not implemented");                                                          \
-}                                                                                              \
+#define FL_P_VALUE_EDGE_PROPERTY_SETTER(objc_lowercased_name, objc_capitalized_name, c_name, edge)  \
+- (void)p_set##objc_capitalized_name:(YGValue)objc_lowercased_name                                  \
+{                                                                                                   \
+  switch (objc_lowercased_name.unit) {                                                              \
+    case YGUnitUndefined:                                                                           \
+      YGNodeStyleSet##c_name(self.node, edge, objc_lowercased_name.value);                          \
+      break;                                                                                        \
+    case YGUnitPoint:                                                                               \
+      YGNodeStyleSet##c_name(self.node, edge, objc_lowercased_name.value);                          \
+      break;                                                                                        \
+    case YGUnitPercent:                                                                             \
+      YGNodeStyleSet##c_name##Percent(self.node, edge, objc_lowercased_name.value);                 \
+      break;                                                                                        \
+    default:                                                                                        \
+      NSAssert(NO, @"Not implemented");                                                             \
+  }                                                                                                 \
 }
 
-#define FL_P_EDGE_PROPERTY_GETTER(type, lowercased_name, capitalized_name, property, edge) \
-- (type)p_##lowercased_name                                                                  \
-{                                                                                        \
-return YGNodeStyleGet##property(self.node, edge);                                      \
+#define FL_P_EDGE_PROPERTY_GETTER(type, lowercased_name, capitalized_name, property, edge)          \
+- (type)p_##lowercased_name                                                                         \
+{                                                                                                   \
+  return YGNodeStyleGet##property(self.node, edge);                                                 \
 }
 
 #define FL_P_VALUE_EDGE_PROPERTY(lowercased_name, capitalized_name, property, edge)   \
@@ -109,6 +111,8 @@ FL_P_VALUE_EDGE_PROPERTY(lowercased_name##End, capitalized_name##End, capitalize
 FL_P_VALUE_EDGE_PROPERTY(lowercased_name##Horizontal, capitalized_name##Horizontal, capitalized_name, YGEdgeHorizontal) \
 FL_P_VALUE_EDGE_PROPERTY(lowercased_name##Vertical, capitalized_name##Vertical, capitalized_name, YGEdgeVertical)       \
 FL_P_VALUE_EDGE_PROPERTY(lowercased_name, capitalized_name, capitalized_name, YGEdgeAll)
+
+#pragma mark - FlexLayout method macros for public getter & setter
 
 static YGConfigRef flexConfig;
 
@@ -612,7 +616,7 @@ static YGConfigRef flexConfig;
     return finalSize;
 }
 
-#pragma mark - Style
+#pragma mark - Private style getter & setter
 
 - (YGPositionType)p_position {
     return YGNodeStyleGetPositionType(self.node);
@@ -654,6 +658,99 @@ FL_P_VALUE_PROPERTY(maxWidth, MaxWidth)
 FL_P_VALUE_PROPERTY(maxHeight, MaxHeight)
 FL_P_PROPERTY(CGFloat, aspectRatio, AspectRatio)
 
+#pragma mark - Public style getter & setter
+
+#define FL_ENUM_PROPERTY(type, yg_type, lowercased_name, capitalized_name)  \
+- (type)fl##capitalized_name                                                \
+{                                                                           \
+  return (type)[self p_##lowercased_name];                                  \
+}                                                                           \
+\
+- (void)setFl##capitalized_name:(type)lowercased_name                       \
+{                                                                           \
+  [self p_set##capitalized_name:(yg_type)lowercased_name];                  \
+}
+
+#define FL_PROPERTY(type, lowercased_name, capitalized_name)                \
+- (type)fl##capitalized_name                                                \
+{                                                                           \
+  return (type)[self p_##lowercased_name];                                  \
+}                                                                           \
+\
+- (void)setFl##capitalized_name:(type)lowercased_name                       \
+{                                                                           \
+  [self p_set##capitalized_name:lowercased_name];                           \
+}
+
+#define FL_AUTO_VALUE_PROPERTY(lowercased_name, capitalized_name)           \
+- (FLValue)fl##capitalized_name                                             \
+{                                                                           \
+  return FLValueFromYG([self p_##lowercased_name]);                         \
+}                                                                           \
+\
+- (void)setFl##capitalized_name:(FLValue)lowercased_name                    \
+{                                                                           \
+  [self p_set##capitalized_name:YGValueFromFL(lowercased_name)];            \
+}
+
+- (FLPositionType)flPosition {
+    return (FLPositionType)[self p_position];
+}
+
+- (void)setFlPosition:(FLPositionType)flPosition {
+    [self p_setPosition:(YGPositionType)flPosition];
+}
+
+FL_ENUM_PROPERTY(FLDirection, YGDirection, direction, Direction)
+FL_ENUM_PROPERTY(FLFlexDirection, YGFlexDirection, flexDirection, FlexDirection)
+FL_ENUM_PROPERTY(FLJustify, YGJustify, justifyContent, JustifyContent)
+FL_ENUM_PROPERTY(FLAlign, YGAlign, alignContent, AlignContent)
+FL_ENUM_PROPERTY(FLAlign, YGAlign, alignItems, AlignItems)
+FL_ENUM_PROPERTY(FLAlign, YGAlign, alignSelf, AlignSelf)
+FL_ENUM_PROPERTY(FLWrap, YGWrap, flexWrap, FlexWrap)
+FL_ENUM_PROPERTY(FLOverflow, YGOverflow, overflow, Overflow)
+FL_ENUM_PROPERTY(FLDisplay, YGDisplay, display, Display)
+
+FL_PROPERTY(CGFloat, flexGrow, FlexGrow)
+FL_PROPERTY(CGFloat, flexShrink, FlexShrink)
+FL_AUTO_VALUE_PROPERTY(flexBasis, FlexBasis)
+
+FL_AUTO_VALUE_PROPERTY(left, Left)
+FL_AUTO_VALUE_PROPERTY(top, Top)
+FL_AUTO_VALUE_PROPERTY(right, Right)
+FL_AUTO_VALUE_PROPERTY(bottom, Bottom)
+FL_AUTO_VALUE_PROPERTY(start, Start)
+FL_AUTO_VALUE_PROPERTY(end, End)
+
+FL_AUTO_VALUE_PROPERTY(marginLeft, MarginLeft)
+FL_AUTO_VALUE_PROPERTY(marginTop, MarginTop)
+FL_AUTO_VALUE_PROPERTY(marginRight, MarginRight)
+FL_AUTO_VALUE_PROPERTY(marginBottom, MarginBottom)
+FL_AUTO_VALUE_PROPERTY(marginStart, MarginStart)
+FL_AUTO_VALUE_PROPERTY(marginEnd, MarginEnd)
+FL_AUTO_VALUE_PROPERTY(marginHorizontal, MarginHorizontal)
+FL_AUTO_VALUE_PROPERTY(marginVertical, MarginVertical)
+FL_AUTO_VALUE_PROPERTY(margin, Margin)
+
+FL_AUTO_VALUE_PROPERTY(paddingLeft, PaddingLeft)
+FL_AUTO_VALUE_PROPERTY(paddingTop, PaddingTop)
+FL_AUTO_VALUE_PROPERTY(paddingRight, PaddingRight)
+FL_AUTO_VALUE_PROPERTY(paddingBottom, PaddingBottom)
+FL_AUTO_VALUE_PROPERTY(paddingStart, PaddingStart)
+FL_AUTO_VALUE_PROPERTY(paddingEnd, PaddingEnd)
+FL_AUTO_VALUE_PROPERTY(paddingHorizontal, PaddingHorizontal)
+FL_AUTO_VALUE_PROPERTY(paddingVertical, PaddingVertical)
+FL_AUTO_VALUE_PROPERTY(padding, Padding)
+
+FL_AUTO_VALUE_PROPERTY(width, Width)
+FL_AUTO_VALUE_PROPERTY(height, Height)
+FL_AUTO_VALUE_PROPERTY(minWidth, MinWidth)
+FL_AUTO_VALUE_PROPERTY(minHeight, MinHeight)
+FL_AUTO_VALUE_PROPERTY(maxWidth, MaxWidth)
+FL_AUTO_VALUE_PROPERTY(maxHeight, MaxHeight)
+
+FL_PROPERTY(CGFloat, aspectRatio, AspectRatio)
+
 #pragma mark - private C methods
 
 static CGFloat FLRoundPixelValue(CGFloat value)
@@ -670,6 +767,16 @@ static CGFloat FLRoundPixelValue(CGFloat value)
 YGValue FLPointValue(CGFloat value)
 {
     return (YGValue) { .value = value, .unit = YGUnitPoint };
+}
+
+FLValue FLValueFromYG(YGValue yogaValue)
+{
+    return (FLValue) { .value = yogaValue.value, .unit = (FLUnit)yogaValue.unit };
+}
+
+YGValue YGValueFromFL(FLValue flexValue)
+{
+    return (YGValue) { .value = flexValue.value, .unit = (YGUnit)flexValue.unit };
 }
 
 static CGFloat FLSanitizeMeasurement(
